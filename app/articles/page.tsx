@@ -3,27 +3,40 @@ import { Loader2 } from "lucide-react"
 import ArticleGrid from "@/components/article-grid"
 import Pagination from "@/components/pagination"
 import clientPromise from "@/lib/mongodb"
+import type { Article } from "@/lib/models"
+import { ObjectId } from "mongodb"
 
-async function getBlogs(page = 1, limit = 9) {
+async function getBlogs(page = 1, limit = 9): Promise<{
+  blogs: Article[]
+  pagination: { total: number; page: number; limit: number; pages: number }
+}> {
   try {
     const client = await clientPromise
     const db = client.db()
 
-    // Get total count for pagination
     const total = await db.collection("blogs").countDocuments({ status: "published" })
 
-    // Calculate pagination info
     const pages = Math.ceil(total / limit)
     const skip = (page - 1) * limit
 
-    // Get blogs with pagination
-    const blogs = await db
+    const rawBlogs = await db
       .collection("blogs")
       .find({ status: "published" })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .toArray()
+
+    // Transform MongoDB documents into Article[]
+    const blogs: Article[] = rawBlogs.map((doc: any) => ({
+      _id: doc._id.toString(),
+      title: doc.title,
+      description: doc.description,
+      category: doc.category,
+      author: doc.author,
+      createdAt: doc.createdAt,
+      updatedAt: doc.updatedAt,
+    }))
 
     return {
       blogs,
@@ -72,4 +85,3 @@ export default async function ArticlesPage({
     </div>
   )
 }
-
