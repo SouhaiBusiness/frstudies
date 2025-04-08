@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
 
       const result = await db.collection("modules").updateOne(
         { _id: existingModule._id },
-        updateData
+        updateData as any
       )
 
       return NextResponse.json(
