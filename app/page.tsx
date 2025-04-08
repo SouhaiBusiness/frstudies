@@ -177,7 +177,7 @@ export default async function Home() {
             <CategoryButtons categories={categories} title="Parcourir par catégorie" />
 
             <div className="bg-white rounded-lg shadow-sm p-4 border">
-              <h3 className="text-lg font-semibold mb-3">Ressources Populaires</h3>
+              <h3 className="text-lg font-semibold mb-3">Ressources Populaires.</h3>
               <ul className="space-y-2">
                 <li>
                   <Link href="/commentaire-compose" className="text-[#0e2d6d] hover:underline">
