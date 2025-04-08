@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -23,4 +25,72 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif;
+  background-color: #eeeeee;*/
 }
+
+
+/*ease-[cubic-bezier(0.95,0.05,0.795,0.035)] */
+
+.smooth-transition{
+  transition: all 1s cubic-bezier(0.42, 0, 0.58, 1); 
+}
+.rounded-btn{
+  border-radius: 30px 0px;
+   transition: 0.3s ease;
+}
+.rounded-btn:hover{
+  border-radius: 30px 50px;
+}
+ 
+.scrollToTop {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #667eea;
+  border-radius: 50%;
+  box-shadow: 0 5px 10px #5e75a4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  z-index: 999999999;
+}
+
+.scrollToTop:hover {
+  background-color: #234567;
+  color: #fff;
+}
+
+.scrollToTop.show {
+  opacity: 1;
+}
+
+.scrollToTop.hide {
+  opacity: 0;
+}
+
+.blog {
+  display: flex;
+  align-items: center;
+  max-width: 750px;
+  gap: 2rem;
+  border: 1px solid #d9d6d6;
+  padding: 0.5rem;
+  border-radius: 10px;
+  transition: 0.3s ease-in-out;
+  margin-bottom: 1.2rem;
+}
+
+ 
+
+.blog:hover {
+  box-shadow: 0 10px 15px #bbbaba;
+  transform: translateY(-10px);
+}
+
+ /* 0e2d6d blue   /   very light gray   dde0e4 gray light /     95a2bd dark gray /      e1ac38 dark yellow*/
