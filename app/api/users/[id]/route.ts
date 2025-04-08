@@ -3,7 +3,13 @@ import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { auth } from "@clerk/nextjs/server"
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
+type RouteParams = {
+  params: {
+    id: string
+  }
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
   try {
     const { userId } = auth()
 
@@ -11,7 +17,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = params.id
+    const id = context.params.id
 
     const client = await clientPromise
     const db = client.db()
@@ -51,7 +57,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, context: RouteParams) {
   try {
     const { userId } = auth()
 
@@ -59,7 +65,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = params.id
+    const id = context.params.id
     const body = await request.json()
 
     const client = await clientPromise
@@ -127,7 +133,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
   try {
     const { userId } = auth()
 
@@ -135,7 +141,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = params.id
+    const id = context.params.id
 
     const client = await clientPromise
     const db = client.db()
@@ -172,4 +178,3 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     return NextResponse.json({ error: "Failed to delete user" }, { status: 500 })
   }
 }
-

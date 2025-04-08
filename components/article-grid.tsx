@@ -41,4 +41,3 @@ export default function ArticleGrid({ articles, emptyMessage = "Aucun article tr
     </div>
   )
 }
-
