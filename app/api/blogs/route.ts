@@ -2,7 +2,9 @@ import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import type { Blog } from "@/lib/models"
 import { auth } from "@clerk/nextjs/server"
+import type { InsertOneResult, Document } from "mongodb"
 
+// GET all blogs with filters & pagination
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -38,9 +40,13 @@ export async function GET(request: NextRequest) {
     const total = await collection.countDocuments(query)
 
     // Get blogs with pagination
-    const blogs = await collection.find(query).sort({ createdAt: -1 }).skip(skip).limit(limit).toArray()
+    const blogs = await collection
+      .find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .toArray()
 
-    // Calculate pagination info
     const pages = Math.ceil(total / limit)
 
     return NextResponse.json({
@@ -58,38 +64,27 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// POST create a new blog
 export async function POST(request: NextRequest) {
   try {
     console.log("Blog creation API called")
 
-    // Get user ID from Clerk
     const { userId } = auth()
     console.log("User ID from auth:", userId)
 
-    // Parse request body
     const body = await request.json()
     console.log("Received blog data:", body)
 
-    // Validate required fields
     if (!body.title || !body.description || !body.content) {
       console.log("Validation failed: Missing required fields")
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Test MongoDB connection before proceeding
-    console.log("Testing MongoDB connection...")
     const client = await clientPromise
-    console.log("MongoDB client created")
-
     const db = client.db()
-    console.log("Database accessed")
 
-    // Verify we can access the blogs collection
     const collections = await db.listCollections({ name: "blogs" }).toArray()
-    console.log("Collections check:", collections.length > 0 ? "blogs collection exists" : "blogs collection not found")
-
     if (collections.length === 0) {
-      // Create the collection if it doesn't exist
       console.log("Creating blogs collection")
       await db.createCollection("blogs")
     }
@@ -102,7 +97,6 @@ export async function POST(request: NextRequest) {
         .replace(/\s+/g, "-")
     }
 
-    // Set default values
     const newBlog: Blog = {
       ...body,
       authorId: userId || "anonymous",
@@ -112,16 +106,12 @@ export async function POST(request: NextRequest) {
 
     console.log("Attempting to insert blog:", JSON.stringify(newBlog, null, 2))
 
-    // Try to insert the blog with a timeout
     const insertPromise = db.collection("blogs").insertOne(newBlog)
-
-    // Set a timeout for the insert operation
     const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("Database operation timed out")), 10000),
     )
 
-    // Race the insert operation against the timeout
-    const result = await Promise.race([insertPromise, timeoutPromise])
+    const result = await Promise.race([insertPromise, timeoutPromise]) as InsertOneResult<Document>
 
     console.log("Blog created with ID:", result.insertedId)
 
@@ -135,14 +125,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error creating blog:", error)
 
-    // Detailed error information
     const errorDetails = {
       message: error instanceof Error ? error.message : String(error),
       stack: error instanceof Error ? error.stack : undefined,
       name: error instanceof Error ? error.name : undefined,
     }
-
-    console.error("Error details:", errorDetails)
 
     return NextResponse.json(
       {
