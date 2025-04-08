@@ -3,11 +3,10 @@ import { Loader2 } from "lucide-react"
 import ArticleGrid from "@/components/article-grid"
 import Pagination from "@/components/pagination"
 import clientPromise from "@/lib/mongodb"
-import type { Article } from "@/lib/models"
-import { ObjectId } from "mongodb"
+import type { Blog } from "@/lib/models"
 
 async function getBlogs(page = 1, limit = 9): Promise<{
-  blogs: Article[]
+  blogs: Blog[]
   pagination: { total: number; page: number; limit: number; pages: number }
 }> {
   try {
@@ -27,13 +26,17 @@ async function getBlogs(page = 1, limit = 9): Promise<{
       .limit(limit)
       .toArray()
 
-    // Transform MongoDB documents into Article[]
-    const blogs: Article[] = rawBlogs.map((doc: any) => ({
-      _id: doc._id.toString(),
+    // Transform MongoDB documents into Blog[]
+    const blogs: Blog[] = rawBlogs.map((doc: any) => ({
+      _id: doc._id?.toString(), // convert ObjectId to string
       title: doc.title,
       description: doc.description,
+      content: doc.content,
       category: doc.category,
       author: doc.author,
+      authorId: doc.authorId,
+      slug: doc.slug,
+      status: doc.status,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     }))
