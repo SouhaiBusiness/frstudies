@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import { auth } from "@clerk/nextjs/server"
 import { ObjectId } from "mongodb"
+import type { FileItem, Module } from "@/lib/models"
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,23 +13,16 @@ export async function GET(request: NextRequest) {
 
     const client = await clientPromise
     const db = client.db()
-    const collection = db.collection("modules")
+    const collection = db.collection<Module>("modules")
 
-    // Build query
     const query: Record<string, any> = {}
 
     if (filiere) query.filiere = filiere
 
-    // Handle semester parameter (can be single value or comma-separated list)
     if (semester) {
-      if (semester.includes(",")) {
-        // Handle multiple semesters (comma-separated)
-        const semesterValues = semester.split(",").map((s) => Number.parseInt(s))
-        query.semester = { $in: semesterValues }
-      } else {
-        // Handle single semester
-        query.semester = Number.parseInt(semester)
-      }
+      query.semester = semester.includes(",")
+        ? { $in: semester.split(",").map((s) => Number.parseInt(s)) }
+        : Number.parseInt(semester)
     }
 
     if (module) query.moduleId = module
@@ -44,8 +38,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("Course upload API called")
-
     const { userId } = auth()
 
     if (!userId) {
@@ -63,52 +55,36 @@ export async function POST(request: NextRequest) {
     }
 
     const semester = Number.parseInt(semesterStr)
-
-    console.log("Received course data:", {
-      filiere,
-      semester,
-      moduleId,
-      fileName: file?.name,
-      fileSize: file?.size,
-    })
-
-    // Get module label for the title
     const moduleLabel = moduleId.split("-").pop() || moduleId
-
-    // Since we can't use Vercel Blob, we'll store metadata and use a placeholder URL
-    // In a production environment, you would use a file storage service like AWS S3, Firebase Storage, etc.
     const placeholderFileUrl = `/api/files/${file.name.replace(/\s+/g, "-")}`
 
     const client = await clientPromise
     const db = client.db()
+    const modulesCollection = db.collection<Module>("modules")
 
-    // Check if the module already exists
-    const existingModule = await db.collection("modules").findOne({
+    const existingModule = await modulesCollection.findOne({
       filiere,
       semester,
       moduleId,
     })
 
+    const fileDoc: FileItem = {
+      id: new ObjectId().toString(),
+      name: file.name,
+      fileUrl: placeholderFileUrl,
+      fileSize: file.size,
+      uploadedBy: "User",
+      uploadedById: userId,
+      uploadedAt: new Date(),
+    }
+
     if (existingModule) {
-      // Module exists, add the file to its files array
-      console.log("Module exists, adding file to existing module:", existingModule._id)
-
-      const fileDoc = {
-        id: new ObjectId().toString(),
-        name: file.name,
-        fileUrl: placeholderFileUrl,
-        fileSize: file.size,
-        uploadedBy: "User",
-        uploadedById: userId,
-        uploadedAt: new Date(),
-      }
-
-      const result = await db.collection("modules").updateOne(
+      await modulesCollection.updateOne(
         { _id: existingModule._id },
         {
           $push: { files: fileDoc },
           $set: { updatedAt: new Date() },
-        },
+        } as any // ✅ workaround to satisfy TypeScript with plain MongoDB
       )
 
       return NextResponse.json(
@@ -118,46 +94,25 @@ export async function POST(request: NextRequest) {
           fileId: fileDoc.id,
           note: "File URL is a placeholder. In production, use a file storage service.",
         },
-        { status: 200 },
+        { status: 200 }
       )
     } else {
-      // Module doesn't exist, create a new one with the file
-      console.log("Module doesn't exist, creating new module")
+      const moduleTitle = moduleId
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
 
-      // Get module title based on moduleId
-      let moduleTitle = moduleId.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
-
-      // If moduleId follows a pattern like "introduction-linguistique", extract a better title
-      if (moduleId.includes("-")) {
-        moduleTitle = moduleId
-          .split("-")
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(" ")
-      }
-
-      const module = {
+      const newModule: Module = {
         filiere,
         semester,
         moduleId,
         title: moduleTitle,
-        files: [
-          {
-            id: new ObjectId().toString(),
-            name: file.name,
-            fileUrl: placeholderFileUrl,
-            fileSize: file.size,
-            uploadedBy: "User",
-            uploadedById: userId,
-            uploadedAt: new Date(),
-          },
-        ],
+        files: [fileDoc],
         createdAt: new Date(),
         updatedAt: new Date(),
       }
 
-      console.log("Creating new module:", module)
-      const result = await db.collection("modules").insertOne(module)
-      console.log("Module created with ID:", result.insertedId)
+      const result = await modulesCollection.insertOne(newModule)
 
       return NextResponse.json(
         {
@@ -165,7 +120,7 @@ export async function POST(request: NextRequest) {
           moduleId: result.insertedId,
           note: "File URL is a placeholder. In production, use a file storage service.",
         },
-        { status: 201 },
+        { status: 201 }
       )
     }
   } catch (error) {
@@ -175,7 +130,7 @@ export async function POST(request: NextRequest) {
         error: "Failed to upload course",
         details: error instanceof Error ? error.message : String(error),
       },
-      { status: 500 },
+      { status: 500 }
     )
   }
 }

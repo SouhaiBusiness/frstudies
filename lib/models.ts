@@ -24,18 +24,23 @@ export interface Blog {
   updatedAt: Date
 }
 
-export interface Course {
-  _id?: ObjectId
-  title: string
-  description: string
-  filiere: "literature" | "linguistics" | "exams" | "commentaire-compose" | "dissertation" | "essai"
-  semester: number
-  module: string
+export interface FileItem {
+  id: string
+  name: string
   fileUrl: string
-  fileName: string
   fileSize: number
   uploadedBy: string
   uploadedById: string
+  uploadedAt: Date
+}
+
+export interface Module {
+  _id?: ObjectId
+  filiere: "literature" | "linguistics" | "exams" | "commentaire-compose" | "dissertation" | "essai"
+  semester: number
+  moduleId: string
+  title: string
+  files: FileItem[]
   createdAt: Date
   updatedAt: Date
 }
