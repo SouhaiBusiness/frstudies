@@ -4,6 +4,8 @@ import { auth } from "@clerk/nextjs/server"
 import { ObjectId } from "mongodb"
 import type { FileItem, Module } from "@/lib/models"
 
+type Filiere = Module["filiere"]
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -46,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData()
     const file = formData.get("file") as File | null
-    const filiere = formData.get("filiere") as string | null
+    const filiere = formData.get("filiere") as Filiere | null
     const semesterStr = formData.get("semester") as string | null
     const moduleId = formData.get("module") as string | null
 
@@ -84,7 +86,7 @@ export async function POST(request: NextRequest) {
         {
           $push: { files: fileDoc },
           $set: { updatedAt: new Date() },
-        } as any // ✅ workaround to satisfy TypeScript with plain MongoDB
+        } as any // ✅ Workaround: TypeScript accepts this as a valid update
       )
 
       return NextResponse.json(
