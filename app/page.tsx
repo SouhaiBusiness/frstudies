@@ -164,7 +164,7 @@ export default async function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">Articles Récents</h2>
+              <h2 className="text-2xl font-bold text-[#0e2d6d]">Articles Récents</h2>
               <Link href="/articles" className="text-[#0e2d6d] hover:underline">
                 Voir tous les articles
               </Link>
@@ -219,7 +219,7 @@ export default async function Home() {
                 Soyez le premier à recevoir nos contenus et ressources exclusives !
               </p>
               <Link
-                href="/signup"
+                href="/sign-up"
                 className="block w-full text-center bg-white text-[#0e2d6d] font-medium py-2 rounded-md hover:bg-gray-100 transition-colors"
               >
                 S'inscrire gratuitement

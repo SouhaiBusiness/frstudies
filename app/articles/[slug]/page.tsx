@@ -36,7 +36,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   })
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto px-4 py-12 bg-white mt-8 mb-4 rounded-xl shadow-2xl">
       <Link href="/articles" className="inline-flex items-center text-[#0e2d6d] hover:underline mb-8">
         <ArrowLeft className="h-4 w-4 mr-2" />
         Retour aux articles
