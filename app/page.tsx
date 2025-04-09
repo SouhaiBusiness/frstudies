@@ -6,6 +6,18 @@ import CategoryButtons from "@/components/category-buttons"
 import Pagination from "@/components/pagination"
 import { Loader2 } from "lucide-react"
 import clientPromise from "@/lib/mongodb"
+import { Blog } from "@/lib/models"
+
+// Define the Article interface to match what ArticleGrid expects
+interface Article {
+  _id: string
+  title: string
+  description: string
+  category: string
+  author: string
+  createdAt: string
+  slug: string
+}
 
 // Sample categories for the buttons
 const categories = [
@@ -23,6 +35,68 @@ const categories = [
   { name: "Théâtre", href: "/literature/theater" },
 ]
 
+// Fallback articles data
+const fallbackArticles: Article[] = [
+  {
+    _id: "1",
+    title: "Introduction à la phonétique française",
+    description: "Découvrez les bases de la phonétique française et comment maîtriser la prononciation.",
+    category: "Linguistique",
+    author: "Dr. Marie Dupont",
+    createdAt: new Date().toISOString(),
+    slug: "introduction-phonetique-francaise",
+  },
+  {
+    _id: "2",
+    title: "L'art de la dissertation littéraire",
+    description: "Méthodologie et conseils pour réussir votre dissertation littéraire en français.",
+    category: "Dissertation",
+    author: "Prof. Jean Martin",
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    slug: "art-dissertation-litteraire",
+  },
+  {
+    _id: "3",
+    title: "Les figures de style dans la poésie française",
+    description:
+      "Analyse des principales figures de style et leur utilisation dans la poésie française classique et moderne.",
+    category: "Littérature",
+    author: "Sophie Leclerc",
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+    slug: "figures-style-poesie-francaise",
+  },
+  {
+    _id: "4",
+    title: "La structure du commentaire composé",
+    description:
+      "Guide complet sur la structure et la méthodologie du commentaire composé en littérature française.",
+    category: "Commentaire Composé",
+    author: "Dr. Philippe Rousseau",
+    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
+    slug: "structure-commentaire-compose",
+  },
+  {
+    _id: "5",
+    title: "L'évolution du roman français au XXe siècle",
+    description:
+      "Panorama des courants littéraires et des auteurs majeurs qui ont marqué le roman français au XXe siècle.",
+    category: "Littérature",
+    author: "Prof. Claire Dubois",
+    createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
+    slug: "evolution-roman-francais-xxe-siecle",
+  },
+  {
+    _id: "6",
+    title: "Les temps verbaux en français",
+    description:
+      "Explication détaillée des temps verbaux en français et leur utilisation dans différents contextes.",
+    category: "Linguistique",
+    author: "Marc Leblanc",
+    createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
+    slug: "temps-verbaux-francais",
+  },
+];
+
 async function getLatestArticles() {
   try {
     // Fetch from the database
@@ -38,82 +112,30 @@ async function getLatestArticles() {
     const total = await db.collection("blogs").countDocuments({ status: "published" })
 
     // Get blogs with pagination
-    const blogs = await db
-      .collection("blogs")
+    const blogsFromDb = await db
+      .collection<Blog>("blogs")
       .find({ status: "published" })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .toArray()
 
+    // Convert MongoDB documents to Article format
+    const blogs: Article[] = blogsFromDb.map(blog => ({
+      _id: blog._id?.toString() || "",
+      title: blog.title,
+      description: blog.description,
+      category: blog.category,
+      author: blog.author,
+      createdAt: blog.createdAt instanceof Date ? blog.createdAt.toISOString() : String(blog.createdAt),
+      slug: blog.slug
+    }));
+
     // Calculate pagination info
     const pages = Math.ceil(total / limit)
 
     return {
-      blogs:
-        blogs.length > 0
-          ? blogs
-          : [
-              // Fallback data if no blogs are found
-              {
-                _id: "1",
-                title: "Introduction à la phonétique française",
-                description: "Découvrez les bases de la phonétique française et comment maîtriser la prononciation.",
-                category: "Linguistique",
-                author: "Dr. Marie Dupont",
-                createdAt: new Date().toISOString(),
-                slug: "introduction-phonetique-francaise",
-              },
-              {
-                _id: "2",
-                title: "L'art de la dissertation littéraire",
-                description: "Méthodologie et conseils pour réussir votre dissertation littéraire en français.",
-                category: "Dissertation",
-                author: "Prof. Jean Martin",
-                createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-                slug: "art-dissertation-litteraire",
-              },
-              {
-                _id: "3",
-                title: "Les figures de style dans la poésie française",
-                description:
-                  "Analyse des principales figures de style et leur utilisation dans la poésie française classique et moderne.",
-                category: "Littérature",
-                author: "Sophie Leclerc",
-                createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-                slug: "figures-style-poesie-francaise",
-              },
-              {
-                _id: "4",
-                title: "La structure du commentaire composé",
-                description:
-                  "Guide complet sur la structure et la méthodologie du commentaire composé en littérature française.",
-                category: "Commentaire Composé",
-                author: "Dr. Philippe Rousseau",
-                createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-                slug: "structure-commentaire-compose",
-              },
-              {
-                _id: "5",
-                title: "L'évolution du roman français au XXe siècle",
-                description:
-                  "Panorama des courants littéraires et des auteurs majeurs qui ont marqué le roman français au XXe siècle.",
-                category: "Littérature",
-                author: "Prof. Claire Dubois",
-                createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-                slug: "evolution-roman-francais-xxe-siecle",
-              },
-              {
-                _id: "6",
-                title: "Les temps verbaux en français",
-                description:
-                  "Explication détaillée des temps verbaux en français et leur utilisation dans différents contextes.",
-                category: "Linguistique",
-                author: "Marc Leblanc",
-                createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(),
-                slug: "temps-verbaux-francais",
-              },
-            ],
+      blogs: blogs.length > 0 ? blogs : fallbackArticles,
       pagination: {
         total,
         page,
@@ -125,19 +147,8 @@ async function getLatestArticles() {
     console.error("Error fetching articles:", error)
     // Return fallback data in case of error
     return {
-      blogs: [
-        {
-          _id: "1",
-          title: "Introduction à la phonétique française",
-          description: "Découvrez les bases de la phonétique française et comment maîtriser la prononciation.",
-          category: "Linguistique",
-          author: "Dr. Marie Dupont",
-          createdAt: new Date().toISOString(),
-          slug: "introduction-phonetique-francaise",
-        },
-        // Add more fallback articles as needed
-      ],
-      pagination: { total: 1, page: 1, limit: 6, pages: 1 },
+      blogs: fallbackArticles,
+      pagination: { total: fallbackArticles.length, page: 1, limit: 6, pages: 1 },
     }
   }
 }
