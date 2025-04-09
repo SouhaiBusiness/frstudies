@@ -1,12 +1,14 @@
 "use client";  
 
-import { useEffect } from "react";
+import { useEffect, ReactNode } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+interface AosProps {
+  children: ReactNode;
+}
 
-
-export default function Aos({children}){
+export default function Aos({ children }: AosProps) {
     useEffect(() => {
         AOS.init({
             //Global settings for aos animation
@@ -18,4 +20,4 @@ export default function Aos({children}){
     }, []);
 
     return <div>{children}</div>
-} 
+}
