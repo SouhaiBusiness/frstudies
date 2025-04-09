@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import type { Blog } from "@/lib/models"
 import { auth } from "@clerk/nextjs/server"
+import type { InsertOneResult } from "mongodb"
 
 export async function GET(request: NextRequest) {
   try {
@@ -116,12 +117,12 @@ export async function POST(request: NextRequest) {
     const insertPromise = db.collection("blogs").insertOne(newBlog)
 
     // Set a timeout for the insert operation
-    const timeoutPromise = new Promise((_, reject) =>
+    const timeoutPromise = new Promise<never>((_, reject) =>
       setTimeout(() => reject(new Error("Database operation timed out")), 10000),
     )
 
     // Race the insert operation against the timeout
-    const result = await Promise.race([insertPromise, timeoutPromise])
+    const result = (await Promise.race([insertPromise, timeoutPromise])) as InsertOneResult<Blog>
 
     console.log("Blog created with ID:", result.insertedId)
 

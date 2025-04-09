@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const collection = db.collection("modules")
 
     // Build query
-    const query: any = {}
+    const query: Record<string, any> = {}
 
     if (filiere) query.filiere = filiere
 
@@ -53,10 +53,16 @@ export async function POST(request: NextRequest) {
     }
 
     const formData = await request.formData()
-    const file = formData.get("file") as File
-    const filiere = formData.get("filiere") as string
-    const semester = Number.parseInt(formData.get("semester") as string)
-    const moduleId = formData.get("module") as string
+    const file = formData.get("file") as File | null
+    const filiere = formData.get("filiere") as string | null
+    const semesterStr = formData.get("semester") as string | null
+    const moduleId = formData.get("module") as string | null
+
+    if (!file || !filiere || !semesterStr || !moduleId) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    const semester = Number.parseInt(semesterStr)
 
     console.log("Received course data:", {
       filiere,
@@ -65,10 +71,6 @@ export async function POST(request: NextRequest) {
       fileName: file?.name,
       fileSize: file?.size,
     })
-
-    if (!file || !filiere || !semester || !moduleId) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
-    }
 
     // Get module label for the title
     const moduleLabel = moduleId.split("-").pop() || moduleId

@@ -3,13 +3,7 @@ import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { auth } from "@clerk/nextjs/server"
 
-type RouteParams = {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(request: NextRequest, context: RouteParams) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { userId } = auth()
 
@@ -17,7 +11,7 @@ export async function GET(request: NextRequest, context: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = context.params.id
+    const id = params.id
 
     const client = await clientPromise
     const db = client.db()
@@ -57,7 +51,7 @@ export async function GET(request: NextRequest, context: RouteParams) {
   }
 }
 
-export async function PUT(request: NextRequest, context: RouteParams) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { userId } = auth()
 
@@ -65,7 +59,7 @@ export async function PUT(request: NextRequest, context: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = context.params.id
+    const id = params.id
     const body = await request.json()
 
     const client = await clientPromise
@@ -133,7 +127,7 @@ export async function PUT(request: NextRequest, context: RouteParams) {
   }
 }
 
-export async function DELETE(request: NextRequest, context: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { userId } = auth()
 
@@ -141,7 +135,7 @@ export async function DELETE(request: NextRequest, context: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    const id = context.params.id
+    const id = params.id
 
     const client = await clientPromise
     const db = client.db()

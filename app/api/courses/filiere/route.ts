@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const collection = db.collection("courses")
 
     // Build query
-    const query: any = { filiere }
+    const query: Record<string, any> = { filiere }
     if (semester) {
       query.semester = Number.parseInt(semester)
     }
@@ -29,4 +29,3 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Failed to fetch courses" }, { status: 500 })
   }
 }
-

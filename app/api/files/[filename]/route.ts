@@ -1,14 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 
-type RouteParams = {
-  params: {
-    filename: string
-  }
-}
-
-export async function GET(request: NextRequest, context: RouteParams) {
+export async function GET(request: NextRequest, { params }: { params: { filename: string } }) {
   try {
-    const filename = context.params.filename
+    const filename = params.filename
 
     // In a real application, you would fetch the file from your storage service
     // For now, we'll return a placeholder response

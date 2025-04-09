@@ -2,15 +2,9 @@ import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 
-type RouteParams = {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(request: NextRequest, context: RouteParams) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const id = context.params.id
+    const id = params.id
 
     const client = await clientPromise
     const db = client.db()
@@ -36,9 +30,9 @@ export async function GET(request: NextRequest, context: RouteParams) {
   }
 }
 
-export async function PUT(request: NextRequest, context: RouteParams) {
+export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const id = context.params.id
+    const id = params.id
     const body = await request.json()
 
     // Validate required fields
@@ -73,9 +67,9 @@ export async function PUT(request: NextRequest, context: RouteParams) {
   }
 }
 
-export async function DELETE(request: NextRequest, context: RouteParams) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const id = context.params.id
+    const id = params.id
 
     const client = await clientPromise
     const db = client.db()
