@@ -16,6 +16,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^3.0.6",
+    "frstudies": "file:",
     "lucide-react": "^0.303.0",
     "mongodb": "^6.3.0",
     "next": "14.2.25",

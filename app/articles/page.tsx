@@ -3,6 +3,18 @@ import { Loader2 } from "lucide-react"
 import ArticleGrid from "@/components/article-grid"
 import Pagination from "@/components/pagination"
 import clientPromise from "@/lib/mongodb"
+import { Blog } from "@/lib/models"
+
+// Define an interface to match what ArticleGrid expects
+interface Article {
+  _id: string
+  title: string
+  description: string
+  category: string
+  author: string
+  createdAt: string
+  slug: string
+}
 
 async function getBlogs(page = 1, limit = 9) {
   try {
@@ -18,15 +30,26 @@ async function getBlogs(page = 1, limit = 9) {
 
     // Get blogs with pagination
     const blogs = await db
-      .collection("blogs")
+      .collection<Blog>("blogs")
       .find({ status: "published" })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .toArray()
 
+    // Transform blogs to match Article interface
+    const articles = blogs.map(blog => ({
+      _id: blog._id?.toString() || "",
+      title: blog.title,
+      description: blog.description,
+      category: blog.category,
+      author: blog.author,
+      createdAt: blog.createdAt.toISOString(),
+      slug: blog.slug
+    }));
+
     return {
-      blogs,
+      blogs: articles, // Return the transformed articles
       pagination: {
         total,
         page,
