@@ -479,7 +479,7 @@ export default function UploadCoursePage() {
                 <ul className='list-disc list-inside mt-1 text-sm'>
                   <li>Vérifiez que le fichier est au format PDF</li>
                   <li>
-                    Vérifiez que le fichier n'est pas trop volumineux (max 10MB)
+                    Vérifiez que le fichier n'est pas trop volumineux (max 2MB)
                   </li>
                   <li>
                     Essayez de rafraîchir la page et de soumettre à nouveau
@@ -621,7 +621,7 @@ export default function UploadCoursePage() {
                   <p className='text-gray-600 mb-2'>
                     Cliquez pour sélectionner un fichier PDF
                   </p>
-                  <p className='text-sm text-gray-500'>PDF jusqu'à 10MB</p>
+                  <p className='text-sm text-gray-500'>PDF jusqu'à 2MB</p>
                   <button
                     type='button'
                     onClick={() => fileInputRef.current?.click()}

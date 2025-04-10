@@ -7,7 +7,7 @@ import Pagination from "@/components/pagination"
 import { Loader2 } from "lucide-react"
 import clientPromise from "@/lib/mongodb"
 import { Blog } from "@/lib/models"
-
+ 
 // Define the Article interface to match what ArticleGrid expects
 interface Article {
   _id: string
@@ -159,8 +159,7 @@ export default async function Home() {
   return (
     <div>
       <HeroSection />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
             <div className="flex justify-between items-center mb-6">

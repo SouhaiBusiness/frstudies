@@ -161,6 +161,38 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+
+            {/* Feature 5*/}
+            <div className='flex items-start gap-6'>
+              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  className='text-white'
+                >
+                  <path d='m2 12 5 5 5-5'></path>
+                  <path d='m2 5 5 5 5-5'></path>
+                  <path d='M12 19h6a2 2 0 0 0 2-2v-4'></path>
+                  <path d='M18 5V3a2 2 0 0 0-2-2h-4'></path>
+                  <path d='M22 12h-4'></path>
+                </svg>
+              </div>
+
+              <div>
+                <h3 className='text-xl font-bold mb-2'>Quiz</h3>
+                <p className='text-gray-300'>
+                  Nous préparons régulièrement des quiz pour rendre votre chemin d'apprentissage ludique, amusant et renforcer chez
+                  vous la compétence de l'auto-évaluation.
+                </p>
+              </div>
+            </div>
           </div>
 
           <div className='max-w-3xl mx-auto'>
@@ -197,7 +229,7 @@ export default function AboutPage() {
               Si vous avez des questions, des suggestions ou des retours,
               n'hésitez pas de nous contacter. Nous travaillons constamment à
               améliorer notre plateforme et serions ravis d'avoir de vos
-              nouvelles.
+              retours.
             </p>
             <div className='mt-4'>
               <Link
@@ -225,6 +257,8 @@ export default function AboutPage() {
                 support@frstudies.fr{' '}
               </Link>
             </p>
+            <h1 className='font-bold mb-8 mt-8'>Disciplines </h1>
+            <p>Littérature - Linguistique - Communication - Art - Traduction - Sociologie - Psychologie - Philosophie </p>
             <h1 className='font-bold mb-8 mt-8'>Réseaux sociaux</h1>
             <div className='flex flex-wrap justify-center items-center gap-6 opacity-70'>
               <Link
