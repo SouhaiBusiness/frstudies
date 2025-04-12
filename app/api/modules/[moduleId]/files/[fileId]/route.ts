@@ -3,6 +3,19 @@ import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { auth } from "@clerk/nextjs/server"
 
+// Add interface for Module document
+interface ModuleFile {
+  id: string
+  // Add other file properties you use
+  uploadedById?: string
+}
+
+interface Module {
+  _id: ObjectId
+  files?: ModuleFile[]
+  // Add other module properties you use
+}
+
 export async function DELETE(
   request: Request,
   { params }: { params: { moduleId: string; fileId: string } }
@@ -16,8 +29,8 @@ export async function DELETE(
     const client = await clientPromise
     const db = client.db()
 
-    // Find the module
-    const module = await db.collection("modules").findOne({
+    // Find the module with proper typing
+    const module = await db.collection<Module>("modules").findOne({
       _id: new ObjectId(moduleId),
     })
 
@@ -25,8 +38,8 @@ export async function DELETE(
       return NextResponse.json({ error: "Module not found" }, { status: 404 })
     }
 
-    // Find the file to delete
-    const fileToDelete = module.files?.find((file: any) => file.id === fileId)
+    // Find the file to delete with proper typing
+    const fileToDelete = module.files?.find((file) => file.id === fileId)
     if (!fileToDelete) {
       return NextResponse.json({ error: "File not found" }, { status: 404 })
     }
@@ -37,11 +50,13 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
     }
 
-    // Remove the file from the module
-    await db.collection("modules").updateOne(
+    // Remove the file from the module with proper typing
+    await db.collection<Module>("modules").updateOne(
       { _id: new ObjectId(moduleId) },
       {
-        $pull: { files: { id: fileId } },
+        $pull: { 
+          files: { id: fileId } as ModuleFile // Type assertion here
+        },
         $set: { updatedAt: new Date() },
       }
     )

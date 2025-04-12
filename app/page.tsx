@@ -133,7 +133,7 @@ async function getLatestArticles() {
 }
 
 export default async function Home() {
-  const { blogs, pagination } = await getLatestArticles()
+  const { blogs } = await getLatestArticles()
 
   return (
     <div>
