@@ -3,11 +3,11 @@ import Link from "next/link"
 import HeroSection from "@/components/hero-section"
 import ArticleGrid from "@/components/article-grid"
 import CategoryButtons from "@/components/category-buttons"
-import Pagination from "@/components/pagination"
 import { Loader2 } from "lucide-react"
 import clientPromise from "@/lib/mongodb"
 import { Blog } from "@/lib/models"
- 
+import MainSearchBar from "@/components/main-search-bar"
+  
 // Define the Article interface to match what ArticleGrid expects
 interface Article {
   _id: string
@@ -99,25 +99,15 @@ const fallbackArticles: Article[] = [
 
 async function getLatestArticles() {
   try {
-    // Fetch from the database
     const client = await clientPromise
     const db = client.db()
 
-    // Get published blogs with pagination
-    const page = 1
-    const limit = 6
-    const skip = (page - 1) * limit
-
-    // Get total count for pagination
-    const total = await db.collection("blogs").countDocuments({ status: "published" })
-
-    // Get blogs with pagination
+    // Get latest published blogs (no pagination)
     const blogsFromDb = await db
       .collection<Blog>("blogs")
       .find({ status: "published" })
       .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
+      .limit(6) // Just limit to 6 most recent
       .toArray()
 
     // Convert MongoDB documents to Article format
@@ -131,24 +121,13 @@ async function getLatestArticles() {
       slug: blog.slug
     }));
 
-    // Calculate pagination info
-    const pages = Math.ceil(total / limit)
-
     return {
-      blogs: blogs.length > 0 ? blogs : fallbackArticles,
-      pagination: {
-        total,
-        page,
-        limit,
-        pages,
-      },
+      blogs: blogs.length > 0 ? blogs : fallbackArticles
     }
   } catch (error) {
     console.error("Error fetching articles:", error)
-    // Return fallback data in case of error
     return {
-      blogs: fallbackArticles,
-      pagination: { total: fallbackArticles.length, page: 1, limit: 6, pages: 1 },
+      blogs: fallbackArticles
     }
   }
 }
@@ -159,6 +138,11 @@ export default async function Home() {
   return (
     <div>
       <HeroSection />
+
+      <div className="bg-gray-50 py-8">
+        <MainSearchBar />
+      </div>
+      
        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
@@ -180,8 +164,7 @@ export default async function Home() {
               <ArticleGrid articles={blogs} />
             </Suspense>
 
-            <Pagination totalPages={pagination.pages} currentPage={pagination.page} />
-          </div>
+           </div>
 
           <div className="space-y-6">
             <CategoryButtons categories={categories} title="Parcourir par catégorie" />

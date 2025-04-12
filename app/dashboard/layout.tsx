@@ -1,29 +1,64 @@
-import type { ReactNode } from "react"
-import { redirect } from "next/navigation"
-import { auth } from "@clerk/nextjs/server"
+// app/(dashboard)/layout.tsx
+"use client"
+
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@clerk/nextjs"
 import DashboardSidebar from "@/components/dashboard-sidebar"
 import { NotificationProvider } from "@/components/notification"
+import AuthPopup from "@/components/auth-popup"
 
-
-export const metadata = {
-  title: "ETUDESFRANÇAISES - Ressources pour les étudiants de français",
-  description: "Une plateforme destinée aux étudiants en études de français pour accéder aux cours, quiz et examens.",
-  icons: {
-    icon: "/favicon.png", // or favicon.png if you want to use PNG
-    shortcut: "/favicon.png",
-  },
-}
-
-
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
-  children: ReactNode
+  children: React.ReactNode
 }) {
-  const { userId } = auth()
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [showAuthPopup, setShowAuthPopup] = useState(false)
+  const { isLoaded, userId } = useAuth()
+  const router = useRouter()
 
-  if (!userId) {
-    redirect("/signin")
+  useEffect(() => {
+    if (!isLoaded) return
+
+    if (!userId) {
+      // Remove this line since you don't have a /signin page
+      // router.push("/signin") 
+      return
+    }
+
+    // Check custom authentication
+    const authStatus = sessionStorage.getItem("isAuthenticated") === "true" || 
+      process.env.NEXT_PUBLIC_BYPASS_AUTH === "true"
+    
+    if (!authStatus) {
+      setShowAuthPopup(true)
+    } else {
+      setIsAuthenticated(true)
+    }
+  }, [isLoaded, userId, router])
+
+  const handleAuthSuccess = () => {
+    sessionStorage.setItem("isAuthenticated", "true")
+    setIsAuthenticated(true)
+    setShowAuthPopup(false)
+  }
+
+  if (!isLoaded || !userId) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Checking authentication...</p>
+      </div>
+    )
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        {showAuthPopup && <AuthPopup onSuccess={handleAuthSuccess} />}
+        <p>Loading dashboard...</p>
+      </div>
+    )
   }
 
   return (
@@ -35,4 +70,3 @@ export default async function DashboardLayout({
     </NotificationProvider>
   )
 }
-

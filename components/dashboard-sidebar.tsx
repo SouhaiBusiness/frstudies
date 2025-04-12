@@ -44,21 +44,21 @@ export default function DashboardSidebar() {
       href: "/dashboard/courses/upload",
       icon: <Upload className="h-5 w-5" />,
     },
-    {
+   {
       name: "Manage Courses",
-      href: "/dashboard/courses",
+      href: "/dashboard/ManageCoursesPage",
       icon: <BookOpen className="h-5 w-5" />,
     },
-    {
-      name: "Manage Users",
-      href: "/dashboard/users",
-      icon: <Users className="h-5 w-5" />,
-    },
-    {
-      name: "Settings",
-      href: "/dashboard/settings",
-      icon: <Settings className="h-5 w-5" />,
-    },
+    //{
+      //name: "Manage Users",
+      //href: "/dashboard/users",
+      //icon: <Users className="h-5 w-5" />,
+    //},
+    //{
+      //name: "Settings",
+      //href: "/dashboard/settings",
+      //icon: <Settings className="h-5 w-5" />,
+    //},  
   ]
 
   return (

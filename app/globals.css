@@ -93,3 +93,15 @@ body {
 }
 
  /* 0e2d6d blue   /   very light gray   dde0e4 gray light /     95a2bd dark gray /      e1ac38 dark yellow*/
+
+
+ 
+.main-search-bar input {
+  background-color: transparent;
+  border: none;
+}
+
+.main-search-bar input:focus {
+  outline: none;
+  box-shadow: none;
+}
