@@ -5,10 +5,19 @@ import { useRouter } from "next/navigation"
 import { Search, X } from "lucide-react"
 import { useState, useEffect } from "react"
 
-export default function MainSearchBar() {
+interface MainSearchBarProps {
+  initialSearch?: string
+}
+
+export default function MainSearchBar({ initialSearch = "" }: MainSearchBarProps) {
   const router = useRouter()
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(initialSearch)
   const [isFocused, setIsFocused] = useState(false)
+
+  // Sync with initialSearch prop
+  useEffect(() => {
+    setSearchTerm(initialSearch)
+  }, [initialSearch])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
