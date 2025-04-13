@@ -144,7 +144,7 @@ export default function CreateBlogPage() {
 
         // Redirect to dashboard after a short delay
         setTimeout(() => {
-          router.push('/dashboard');
+          router.push('/d-frs654');
         }, 1500);
       }
     } catch (error) {
@@ -357,7 +357,7 @@ export default function CreateBlogPage() {
         <div className='flex justify-end gap-2'>
           <button
             type='button'
-            onClick={() => router.push('/dashboard')}
+            onClick={() => router.push('/d-frs654')}
             className='px-4 py-2 border rounded-md hover:bg-gray-50'
           >
             Cancel

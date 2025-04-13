@@ -243,7 +243,7 @@ export default function DashboardPage() {
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Dashboard Overview</h1>
           <Link
-            href="/dashboard/blogs/new"
+            href="/d-frs654/blogs/new"
             className="bg-[#0e2d6d] hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2"
           >
             <Plus className="h-4 w-4" /> Create New Blog
@@ -262,7 +262,7 @@ export default function DashboardPage() {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Dashboard Overview</h1>
         <Link
-          href="/dashboard/blogs/new"
+          href="/d-frs654/blogs/new"
           className="bg-[#0e2d6d] hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center gap-2"
         >
           <Plus className="h-4 w-4" /> Create New Blog
@@ -361,7 +361,7 @@ export default function DashboardPage() {
                   <div className="col-span-2">{new Date(blog.updatedAt || blog.createdAt).toLocaleDateString()}</div>
                   <div className="col-span-1 flex gap-1">
                     <button
-                      onClick={() => router.push(`/dashboard/blogs/${blog._id}/edit`)}
+                      onClick={() => router.push(`/d-frs654/blogs/${blog._id}/edit`)}
                       className="p-1 rounded-md hover:bg-gray-100 text-blue-600"
                       title="Edit"
                     >

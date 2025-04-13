@@ -31,32 +31,32 @@ export default function DashboardSidebar() {
   const navItems = [
     {
       name: "Dashboard",
-      href: "/dashboard",
+      href: "/d-frs654",
       icon: <LayoutDashboard className="h-5 w-5" />,
     },
     {
       name: "Create Blog",
-      href: "/dashboard/blogs/new",
+      href: "/d-frs654/blogs/new",
       icon: <FileText className="h-5 w-5" />,
     },
     {
       name: "Upload Course",
-      href: "/dashboard/courses/upload",
+      href: "/d-frs654/courses/upload",
       icon: <Upload className="h-5 w-5" />,
     },
    {
       name: "Manage Courses",
-      href: "/dashboard/ManageCoursesPage",
+      href: "/d-frs654/ManageCoursesPage",
       icon: <BookOpen className="h-5 w-5" />,
     },
     //{
       //name: "Manage Users",
-      //href: "/dashboard/users",
+      //href: "/d-frs654/users",
       //icon: <Users className="h-5 w-5" />,
     //},
     //{
       //name: "Settings",
-      //href: "/dashboard/settings",
+      //href: "/d-frs654/settings",
       //icon: <Settings className="h-5 w-5" />,
     //},  
   ]
@@ -90,7 +90,7 @@ export default function DashboardSidebar() {
           {/* Sidebar header */}
           <div className="flex items-center justify-between h-16 px-4 border-b">
             {!collapsed && (
-              <Link href="/dashboard" className="text-xl font-bold text-[#0e2d6d]">
+              <Link href="/d-frs654" className="text-xl font-bold text-[#0e2d6d]">
                 Admin Panel
               </Link>
             )}
