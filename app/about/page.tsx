@@ -258,7 +258,7 @@ export default function AboutPage() {
               </Link>
             </p>
             <h1 className='font-bold mb-8 mt-8'>Disciplines </h1>
-            <p>Littérature - Linguistique - Communication - Art - Traduction - Sociologie - Psychologie - Philosophie </p>
+            <p>Littérature - Linguistique - Communication - Art - Traduction - Sociologie - Psychologie - Philosophie - Didactique - Pédagogie </p>
             <h1 className='font-bold mb-8 mt-8'>Réseaux sociaux</h1>
             <div className='flex flex-wrap justify-center items-center gap-6 opacity-70'>
               <Link

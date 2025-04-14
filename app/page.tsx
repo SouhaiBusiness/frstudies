@@ -33,6 +33,8 @@ const categories = [
   { name: "Poésie", href: "/literature/poetry" },
   { name: "Roman", href: "/literature/novel" },
   { name: "Théâtre", href: "/literature/theater" },
+  { name: "Pédagogie", href: "/pédagogie/theater" },
+  { name: "Didactique", href: "/didactique/theater" },
 ]
 
 // Fallback articles data
@@ -167,7 +169,7 @@ export default async function Home() {
            </div>
 
           <div className="space-y-6" >
-            <CategoryButtons categories={categories} title="Parcourir par catégorie" />
+            <CategoryButtons categories={categories} title="Les catégories disponibles" />
 
             <div className="bg-white rounded-lg shadow-sm p-4 border" data-aos='fade-left'>
               <h3 className="text-lg font-semibold mb-3">Ressources Populaires.</h3>

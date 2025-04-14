@@ -11,7 +11,7 @@ const slides = [
   {
     id: 1,
     title: "Explorer la linguistique",
-    description: "Dive into the fascinating world of French linguistics with our comprehensive courses.",
+    description: "Plongez dans le monde fascinant de la linguistique française grâce à nos cours complets.",
     cta: "Explorer la linguistique",
     link: "/linguistics",
     image: "/linguistique.jpg?height=600&width=1200",
@@ -34,7 +34,7 @@ const slides = [
   },
   {
     id: 4,
-    title: "Tester vos connaissances",
+    title: "Testez vos connaissances",
     description: " Mettez-vous au défi avec nos quiz interactifs sur la langue et la littérature françaises.",
     cta: "Commencer un Quiz",
     link: "/quiz",

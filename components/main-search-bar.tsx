@@ -54,7 +54,7 @@ export default function MainSearchBar({ initialSearch = "" }: MainSearchBarProps
         )}
         <button
           type="submit"
-          className="bg-[#0e2d6d] text-white p-2 hover:bg-blue-700 transition-colors"
+          className="bg-[#0e2d6d] text-white p-2 rounded-tl-full rounded-bl-full hover:bg-blue-700 transition-colors"
         >
           <Search className="h-5 w-5" />
         </button>
