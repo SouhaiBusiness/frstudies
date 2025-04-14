@@ -22,7 +22,7 @@ export default function CategoryButtons({ categories, title = "Catégories" }: C
   const displayedCategories = showAll ? categories : categories.slice(0, 6)
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-4 border">
+    <div className="bg-white rounded-lg shadow-sm p-4 border"  data-aos='fade-left'>
       <h3 className="text-lg font-semibold mb-3">{title}</h3>
 
       <div className="flex flex-wrap gap-2">

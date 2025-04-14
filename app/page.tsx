@@ -166,10 +166,10 @@ export default async function Home() {
 
            </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6" >
             <CategoryButtons categories={categories} title="Parcourir par catégorie" />
 
-            <div className="bg-white rounded-lg shadow-sm p-4 border">
+            <div className="bg-white rounded-lg shadow-sm p-4 border" data-aos='fade-left'>
               <h3 className="text-lg font-semibold mb-3">Ressources Populaires.</h3>
               <ul className="space-y-2">
                 <li>
@@ -195,7 +195,7 @@ export default async function Home() {
               </ul>
             </div>
 
-            <div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4">
+            <div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
               <h3 className="text-lg font-semibold mb-3">Rejoignez-nous</h3>
               <p className="text-sm mb-4">
                 Soyez le premier à recevoir nos contenus et ressources exclusives !

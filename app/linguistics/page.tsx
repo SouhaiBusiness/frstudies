@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Loader2 } from "lucide-react"
 import SemesterFilter from "@/components/semester-filter"
 import ModuleList from "@/components/module-list"
+import Link from "next/link"
 
 // Define the modules for linguistics by semester (fallback data)
 const linguisticsModules = {
@@ -111,6 +112,8 @@ export default function LinguisticsPage() {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explorez nos ressources en linguistique française, organisées par semestre et par module
         </p>
+        <p className="text-red-400">N.B: Vous allez trouver les modules des semestres 1, 2, 3, 4 sur la page  
+          <Link href="/literature" className="underline"> "Littérature"</Link> <br></br> les modules des semestres 5 et 6 de la branche linguistique existent sur cette page </p>
       </div>
 
       <SemesterFilter activeSemester={activeSemester} onSemesterChange={setActiveSemester} />

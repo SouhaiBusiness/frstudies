@@ -151,7 +151,7 @@ export default function ExamsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Linguistics Card */}
-          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600">
+          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-right'>
             <div className="p-6">
               <h2 className="text-xl font-bold mb-4 text-[#0e2d6d]">Examens de linguistique</h2>
               <p className="text-gray-600 mb-4">
@@ -206,7 +206,7 @@ export default function ExamsPage() {
           </div>
 
           {/* Literature Card */}
-          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600">
+          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-left'>
             <div className="p-6">
               <h2 className="text-xl font-bold mb-4 text-[#0e2d6d]">Examens de Littérature</h2>
               <p className="text-gray-600 mb-4">
