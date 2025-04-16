@@ -105,3 +105,15 @@ body {
   outline: none;
   box-shadow: none;
 }
+
+.animation-scale{
+  animation: scale 5s linear infinite;
+}
+@keyframes scale{
+  0%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(1.3);
+  }
+}

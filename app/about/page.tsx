@@ -35,7 +35,7 @@ export default function AboutPage() {
 
             {/* Feature 1 */}
             <div className='flex items-start gap-6'>
-              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+              <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
@@ -59,14 +59,14 @@ export default function AboutPage() {
                 <h3 className='text-xl font-bold mb-2'>Cours</h3>
                 <p className='text-gray-300'>
                   Cours conçus d'une manière accessible et rapides par semestre
-                  et par modules
+                  et par modules.
                 </p>
               </div>
             </div>
 
             {/* Feature 2 */}
             <div className='flex items-start gap-6'>
-              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+              <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
@@ -98,7 +98,7 @@ export default function AboutPage() {
 
             {/* Feature 3*/}
             <div className='flex items-start gap-6'>
-              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+              <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
@@ -125,14 +125,14 @@ export default function AboutPage() {
                 </h3>
                 <p className='text-gray-300'>
                   Ressources pour des sujets spécialisés comme le Commentaire
-                  Composé et la Dissertation
+                  Composé et la Dissertation.
                 </p>
               </div>
             </div>
 
             {/* Feature 4*/}
             <div className='flex items-start gap-6'>
-              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+              <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
@@ -157,14 +157,14 @@ export default function AboutPage() {
                 <h3 className='text-xl font-bold mb-2'>Blogs</h3>
                 <p className='text-gray-300'>
                   Une interface conviviale qui permet de trouver rapidement des
-                  ressources et des réflexions sur des sujets divers
+                  ressources et des réflexions sur des sujets divers sous forme d'articles.
                 </p>
               </div>
             </div>
 
             {/* Feature 5*/}
             <div className='flex items-start gap-6'>
-              <div className='bg-blue-600 rounded-full p-3 shrink-0'>
+              <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
