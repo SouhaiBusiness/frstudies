@@ -229,8 +229,8 @@ const modulesByFiliereAndSemester = {
       { value: 'poésie-et-versification', label: 'Poésie et versification' },
       { value: 'Morphosyntaxe', label: 'morphosyntaxe' },
       {
-        value: 'introduction-à-linterculturelle',
-        label: 'Introduction à linterculturelle',
+        value: "introduction-à-l'interculturelle",
+        label: "Introduction à l'interculturelle",
       },
     ],
     '3': [
@@ -279,7 +279,7 @@ const modulesByFiliereAndSemester = {
       },
       { value: 'analyse-du-roman', label: 'Analyse du roman' },
       { value: 'les écritures-de-soi', label: 'Les écritures de soi' },
-      { value: 'analyse-littéraire-1', label: 'Analyse-littéraire-1' },
+      { value: 'analyse-littéraire-2', label: 'Analyse-littéraire-2' },
       { value: 'théchniques-délaboration', label: 'Théchniques d élaboration' },
       { value: 'Analyse-du-discours', label: 'Analyse du discours' },
       { value: 'La-pragmatique', label: 'La pragmatique' },
