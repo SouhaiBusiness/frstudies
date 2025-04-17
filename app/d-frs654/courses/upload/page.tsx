@@ -238,7 +238,7 @@ const modulesByFiliereAndSemester = {
       { value: 'morphosyntaxe', label: 'Morphosyntaxe' },
       { value: 'analyse-du-roman', label: 'Analyse du roman' },
       { value: 'histoire-des-idées', label: 'Histoire des idées' },
-      { value: 'lexicographie', label: 'Lexicographie' },
+      { value: 'lexicologie', label: 'Lexicologie' },
       { value: 'traduction', label: 'Traduction' },
     ],
     '4': [
