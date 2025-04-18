@@ -4,8 +4,8 @@ import { BookOpen, MessageSquare, Bookmark } from "lucide-react"
 const quizzes = [
   {
     id: "vocabulary",
-    title: "Quiz de vocabulaire français",
-    description: "Testez vos connaissances du vocabulaire essentiel en français sur divers sujets.",
+    title: "Quiz de l'histoire des idées et de l'art",
+    description: "Testez votre culture générale de l'histoire des idées et de l'art",
     icon: BookOpen,
     color: "bg-blue-600",
     questions: 20,
