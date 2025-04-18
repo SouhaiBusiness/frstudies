@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ChevronDown, FileText, Loader2 } from "lucide-react"
+import CategoryButtons from "@/components/category-buttons"
 
 interface ModuleFile {
   id: string
@@ -133,8 +134,30 @@ export default function ExamsPage() {
   const displayLinguisticsModules = linguisticsModules.length > 0 ? linguisticsModules : fallbackLinguisticsModules
   const displayLiteratureModules = literatureModules.length > 0 ? literatureModules : fallbackLiteratureModules
 
+  // Sample categories for the buttons
+const categories = [
+  { name: "Linguistique", href: "/linguistics" },
+  { name: "Littérature", href: "/literature" },
+  { name: "Commentaire Composé", href: "/commentaire-compose" },
+  { name: "Dissertation", href: "/dissertation" },
+  { name: "Essai", href: "/essai" },
+  { name: "Communication", href: "/didactique/theater" },
+  { name: "Pédagogie", href: "/pédagogie" },
+  { name: "Didactique", href: "/didactique" },
+  { name: "Psychologie", href: "/psychologie" },
+  { name: "Sociologie", href: "/sociologie" },
+  { name: "Philosophie", href: "/philosophie" },
+  { name: "Histoire des idées et de l'art", href: "/literature" },
+  { name: "Roman", href: "/literature" },
+  { name: "Théâtre", href: "/literature" },
+  { name: "Phonétique", href: "/linguistics" },
+  { name: "Morphosyntaxe", href: "/linguistics" },
+  { name: "Sémantique", href: "/linguistics/" },
+  { name: "Poésie", href: "/literature" },
+]
+
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 py-8 ">
       <h1 className="text-3xl font-bold mb-6 text-center text-[#0e2d6d]">Session Exams</h1>
       <p className="text-center mb-8 max-w-2xl mx-auto">
         Accédez à des sujets d'examens passés et à des supports d'étude pour vous aider à préparer vos examens de
@@ -151,7 +174,7 @@ export default function ExamsPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Linguistics Card */}
-          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-right'>
+       {/*<div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-right'>
             <div className="p-6">
               <h2 className="text-xl font-bold mb-4 text-[#0e2d6d]">Examens de linguistique</h2>
               <p className="text-gray-600 mb-4">
@@ -203,14 +226,14 @@ export default function ExamsPage() {
                 Commencer un quiz
               </Link>
             </div>
-          </div>
+          </div>*/}
 
           {/* Literature Card */}
-          <div className="bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-left'>
+          <div className=" bg-white shadow-2xl rounded-lg overflow-hidden border-b-[1px] border-t-[1px] border-gray-600" data-aos='fade-right'>
             <div className="p-6">
-              <h2 className="text-xl font-bold mb-4 text-[#0e2d6d]">Examens de Littérature</h2>
+              <h2 className="text-xl font-bold mb-4 text-[#0e2d6d]">Examens et épreuves écrites</h2>
               <p className="text-gray-600 mb-4">
-                Sujets d'examen passés et réponses modèles pour les examens de littérature.
+                Sujets d'examen passés et réponses modèles pour les examens de littérature et linguistique.
               </p>
 
               <div className="space-y-3 mb-6">
@@ -259,6 +282,50 @@ export default function ExamsPage() {
               </Link>
             </div>
           </div>
+
+          <div className="space-y-6" >
+                      <CategoryButtons categories={categories} title="Les catégories disponibles" />
+          
+                      <div className="bg-white rounded-lg shadow-sm p-4 border" data-aos='fade-left'>
+                        <h3 className="text-lg font-semibold mb-3">Ressources Populaires.</h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link href="/commentaire-compose" className="text-[#0e2d6d] hover:underline">
+                              Guide du commentaire composé
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/dissertation" className="text-[#0e2d6d] hover:underline">
+                              Méthodologie de la dissertation
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/linguistics/phonetics" className="text-[#0e2d6d] hover:underline">
+                              Cours de phonétique française
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/literature/poetry" className="text-[#0e2d6d] hover:underline">
+                              Analyse poétique
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+          
+                      <div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
+                        <h3 className="text-lg font-semibold mb-3">Rejoignez-nous</h3>
+                        <p className="text-sm mb-4">
+                          Soyez le premier à recevoir nos contenus et ressources exclusives !
+                        </p>
+                        <Link
+                          href="/sign-up"
+                          className="block w-full text-center bg-white text-[#0e2d6d] font-medium py-2 rounded-md hover:bg-gray-100 transition-colors"
+                        >
+                          S'inscrire gratuitement
+                        </Link>
+                      </div>
+                    </div>
+
         </div>
       )}
     </main>
