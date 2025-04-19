@@ -4,19 +4,56 @@ import { formatDistanceToNow } from "date-fns"
 import { fr } from "date-fns/locale"
 import { ArrowLeft, Calendar, User } from "lucide-react"
 import clientPromise from "@/lib/mongodb"
+import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 
-async function getBlogBySlug(slug: string) {
+// Define a type for the blog data
+interface Blog {
+  _id: string;
+  title: string;
+  description: string;
+  content: string;
+  category: string;
+  author?: string;
+  slug: string;
+  createdAt: Date;
+  status: string;
+}
+
+marked.setOptions({
+  async: false,
+  gfm: true,
+  breaks: true
+})
+
+const getPurify = () => {
+  if (typeof window !== 'undefined') {
+    return DOMPurify(window)
+  }
+  return {
+    sanitize: (html: string) => html
+  }
+}
+
+async function getBlogBySlug(slug: string): Promise<Blog | null> {
   try {
     const client = await clientPromise
     const db = client.db()
-
     const blog = await db.collection("blogs").findOne({ slug })
-
-    if (!blog) {
-      return null
+    
+    if (!blog) return null
+    
+    return {
+      _id: blog._id.toString(),
+      title: blog.title,
+      description: blog.description,
+      content: blog.content,
+      category: blog.category,
+      author: blog.author,
+      slug: blog.slug,
+      createdAt: blog.createdAt,
+      status: blog.status
     }
-
-    return blog
   } catch (error) {
     console.error("Error fetching blog:", error)
     return null
@@ -35,6 +72,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
     locale: fr,
   })
 
+  const purify = getPurify()
+  const htmlContent = purify.sanitize(marked.parse(article.content) as string)
+  
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 bg-white mt-8 mb-4 rounded-xl shadow-2xl">
       <Link href="/articles" className="inline-flex items-center text-[#0e2d6d] hover:underline mb-8">
@@ -62,7 +102,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
       </div>
 
       <div className="prose prose-lg max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: article.content }} />
+        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </div>
     </div>
   )
