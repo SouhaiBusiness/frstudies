@@ -24,7 +24,7 @@ interface ArticleGridProps {
 export default function ArticleGrid({ 
   articles, 
   emptyMessage = "Aucun article trouvé",
-  itemsPerPage = 5 
+  itemsPerPage = 6 
 }: ArticleGridProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(articles.length / itemsPerPage)
