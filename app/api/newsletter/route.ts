@@ -1,56 +1,49 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs'
-import path from 'path'
+import clientPromise from '@/lib/mongodb'
+import { NewsletterSubscriber } from '@/lib/models'
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json()
 
-    // Validate email exists
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
+    // Validate email
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { error: 'Invalid email address' },
+        { status: 400 }
+      )
     }
 
-    // Validate email format
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Invalid email format' }, { status: 400 })
+    const client = await clientPromise
+    const db = client.db() // Use your database name if different from default
+
+    // Check if email already exists
+    const existingSubscriber = await db
+      .collection<NewsletterSubscriber>('newsletter')
+      .findOne({ email })
+
+    if (existingSubscriber) {
+      return NextResponse.json(
+        { error: 'This email is already subscribed' },
+        { status: 400 }
+      )
     }
 
-    // Create storage directory if it doesn't exist
-    const storageDir = path.join(process.cwd(), 'storage')
-    if (!fs.existsSync(storageDir)) {
-      fs.mkdirSync(storageDir)
-    }
-
-    // Path to the emails file
-    const filePath = path.join(storageDir, 'newsletter-emails.txt')
-
-    // Read existing emails to prevent duplicates
-    let existingEmails: string[] = []
-    if (fs.existsSync(filePath)) {
-      const fileContent = fs.readFileSync(filePath, 'utf-8')
-      existingEmails = fileContent
-        .split('\n')
-        .filter(line => line.includes('@'))
-        .map(line => line.split(': ')[1]?.trim())
-    }
-
-    // Check for duplicate
-    if (existingEmails.includes(email)) {
-      return NextResponse.json({ error: 'This email is already subscribed' }, { status: 400 })
-    }
-
-    // Append the new email with timestamp
-    const timestamp = new Date().toISOString()
-    fs.appendFileSync(filePath, `${timestamp}: ${email}\n`)
+    // Insert new subscriber
+    await db.collection<NewsletterSubscriber>('newsletter').insertOne({
+      email,
+      createdAt: new Date(),
+      verified: false,
+      unsubscribed: false
+    })
 
     return NextResponse.json(
-      { message: 'Thank you for subscribing to our newsletter!' },
+      { message: 'Merci ! vous êtes inscrit à notre newsletter.' },
       { status: 200 }
     )
 
   } catch (error) {
-    console.error('Error saving email:', error)
+    console.error('Error saving subscriber:', error)
     return NextResponse.json(
       { error: 'An error occurred while processing your request' },
       { status: 500 }

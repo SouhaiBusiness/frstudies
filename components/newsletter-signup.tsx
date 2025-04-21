@@ -44,7 +44,7 @@ export default function NewsletterSignup() {
 
   return (
     <div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
-      <h3 className="text-lg font-semibold mb-3">Rejoignez notre Newsletter</h3>
+      <h3 className="text-lg font-semibold mb-3">Rejoignez-nous !</h3>
       <p className="text-sm mb-4">
         Soyez le premier à recevoir nos contenus et ressources exclusives !
       </p>
@@ -82,7 +82,7 @@ export default function NewsletterSignup() {
       
       {message && (
         <div className={`mt-3 p-2 rounded text-sm ${
-          message.includes('Thank you') 
+          message.includes('Merci') 
             ? 'bg-green-100 text-green-700' 
             : 'bg-red-100 text-red-700'
         }`}>

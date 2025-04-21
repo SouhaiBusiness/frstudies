@@ -44,3 +44,13 @@ export interface Module {
   createdAt: Date
   updatedAt: Date
 }
+
+
+// Add to your existing models.ts
+export interface NewsletterSubscriber {
+  _id?: ObjectId
+  email: string
+  createdAt: Date
+  verified?: boolean
+  unsubscribed?: boolean
+}
