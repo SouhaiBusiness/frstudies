@@ -7,6 +7,7 @@ import { Loader2 } from "lucide-react"
 import clientPromise from "@/lib/mongodb"
 import { Blog } from "@/lib/models"
 import MainSearchBar from "@/components/main-search-bar"
+import NewsletterSignup from "@/components/newsletter-signup"
   
 // Define the Article interface to match what ArticleGrid expects
 interface Article {
@@ -201,7 +202,7 @@ export default async function Home() {
               </ul>
             </div>
 
-            <div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
+            {/*<div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
               <h3 className="text-lg font-semibold mb-3">Rejoignez-nous</h3>
               <p className="text-sm mb-4">
                 Soyez le premier à recevoir nos contenus et ressources exclusives !
@@ -212,7 +213,9 @@ export default async function Home() {
               >
                 S'inscrire gratuitement
               </Link>
-            </div>
+            </div>*/}
+
+            <NewsletterSignup />
           </div>
         </div>
       </div>
