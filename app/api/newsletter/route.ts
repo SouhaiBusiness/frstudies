@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     if (existingSubscriber) {
       return NextResponse.json(
-        { error: 'This email is already subscribed' },
+        { error: 'vous êtes déjà inscrit' },
         { status: 400 }
       )
     }
