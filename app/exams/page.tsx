@@ -44,7 +44,7 @@ export default function ExamsPage() {
         const linguisticsData = await linguisticsResponse.json()
 
         // Fetch literature exam modules
-        const literatureResponse = await fetch("/api/courses?filiere=exams&semester=2,3")
+        const literatureResponse = await fetch("/api/courses?filiere=exams&semester=1,2,3,4,5,6")
         if (!literatureResponse.ok) {
           throw new Error("Failed to fetch literature exam modules")
         }
