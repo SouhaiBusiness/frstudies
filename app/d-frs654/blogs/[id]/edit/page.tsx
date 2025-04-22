@@ -30,6 +30,14 @@ const categories = [
   "Communication",
   "Traduction",
   "Philosophie",
+  "Didactique & Pédagogie",
+  "Psychologie",
+  "Sociologie",
+  "Roman",
+  "Théâtre",
+  "Poésie",
+  "Sémantique",
+  "Morphosyntaxe",
 ]
 
 export default function EditBlogPage({ params }: { params: { id: string } }) {
