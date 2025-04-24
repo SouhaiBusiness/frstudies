@@ -8,14 +8,15 @@ import UserAuthButton from "./user-auth-button"
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [isCoursesOpen, setIsCoursesOpen] = useState(false)
+  const [isMobileCoursesOpen, setIsMobileCoursesOpen] = useState(false)
 
   return (
     <nav className="bg-white shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center ">
-            <Link href="/" className=" flex-shrink-0 text-[#0e2d6d] font-bold mt-[10px]   ">
-              <div className="relative w-40 h-10 ">
+          <div className="flex items-center">
+            <Link href="/" className="flex-shrink-0 text-[#0e2d6d] font-bold mt-[10px]">
+              <div className="relative w-40 h-10">
                 <h2 className="hover:tracking-wider">ETUDESFRANÇAISES</h2>
               </div>
             </Link>
@@ -37,28 +38,33 @@ export default function Navbar() {
             </Link>
 
             {/* Courses dropdown */}
-            <div className="relative">
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsCoursesOpen(true)}
+              onMouseLeave={() => setIsCoursesOpen(false)}
+            >
               <button
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d] flex items-center"
-                onClick={() => setIsCoursesOpen(!isCoursesOpen)}
               >
                 Cours
                 <ChevronDown className="ml-1 h-4 w-4" />
               </button>
 
               {isCoursesOpen && (
-                <div className="absolute z-10 left-0 mt-2 w-56 rounded-md inset-shadow-sm inset-shadow-gray-500/50 bg-white grid grid-cols-2 gap-4 p-4">
+                <div 
+                  className="absolute z-10 left-0 mt-2 w-56 rounded-md shadow-lg bg-white grid grid-cols-2 gap-4 p-4"
+                  onMouseEnter={() => setIsCoursesOpen(true)}
+                  onMouseLeave={() => setIsCoursesOpen(false)}
+                >
                   <div className="flex flex-col gap-2 items-center w-full">
                     <h3 className="text-sm font-bold text-gray-900 mb-2">Filières</h3>
                     <Link
-                      onClick={() => setIsCoursesOpen(false)}
                       href="/linguistics"
                       className="flex items-center justify-center grow px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                     >
                       Linguistique
                     </Link>
                     <Link
-                      onClick={() => setIsCoursesOpen(false)}
                       href="/literature"
                       className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                     >
@@ -68,21 +74,18 @@ export default function Navbar() {
                   <div className="flex flex-col gap-2 items-center">
                     <h3 className="text-sm font-bold text-gray-900 mb-2">Rédaction</h3>
                     <Link
-                      onClick={() => setIsCoursesOpen(false)}
                       href="/commentaire-compose"
                       className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                     >
                       Commentaire Composé
                     </Link>
                     <Link
-                      onClick={() => setIsCoursesOpen(false)}
                       href="/dissertation"
                       className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                     >
                       Dissertation
                     </Link>
                     <Link
-                      onClick={() => setIsCoursesOpen(false)}
                       href="/essai"
                       className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                     >
@@ -153,45 +156,52 @@ export default function Navbar() {
         <div className="md:hidden">
           <div className="flex flex-col justify-center items-center px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <Link
-              onClick={() => setIsOpen(false)}
               href="/"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d]"
+              onClick={() => setIsOpen(false)}
             >
               Accueil
             </Link>
             <Link
-              onClick={() => setIsOpen(false)}
               href="/quiz"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d]"
+              onClick={() => setIsOpen(false)}
             >
               Quiz
             </Link>
 
             {/* Mobile Courses dropdown */}
-            <div>
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsMobileCoursesOpen(true)}
+              onMouseLeave={() => setIsMobileCoursesOpen(false)}
+            >
               <button
-                onClick={() => setIsCoursesOpen(!isCoursesOpen)}
                 className="flex justify-center items-center w-full text-left px-3 py-2 cursor-pointer rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d]"
               >
                 Cours
-                <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isCoursesOpen ? "rotate-180" : ""}`} />
+                <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isMobileCoursesOpen ? "rotate-180" : ""}`} />
               </button>
 
-              {isCoursesOpen && (
-                <div className="pl-4 ml-40 space-y-1 border-l border-gray-300">
+              {isMobileCoursesOpen && (
+                <div 
+                  className="pl-4 ml-40 space-y-1 border-l border-gray-300"
+                  onMouseEnter={() => setIsMobileCoursesOpen(true)}
+                  onMouseLeave={() => setIsMobileCoursesOpen(false)}
+                >
                   <div className="mt-2">
                     <h3 className="text-sm font-bold text-gray-900 mb-2">Filières</h3>
                     <Link
-                      onClick={() => setIsOpen(false)}
                       href="/linguistics"
                       className="block w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                      onClick={() => setIsOpen(false)}
                     >
                       Linguistique
                     </Link>
                     <Link
-                      onClick={() => setIsOpen(false)}
                       href="/literature"
                       className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                      onClick={() => setIsOpen(false)}
                     >
                       Littérature
                     </Link>
@@ -199,23 +209,23 @@ export default function Navbar() {
                   <div className="mt-2">
                     <h3 className="text-sm font-bold text-gray-900 mb-2">Rédaction</h3>
                     <Link
-                      onClick={() => setIsOpen(false)}
                       href="/commentaire-compose"
                       className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                      onClick={() => setIsOpen(false)}
                     >
                       Commentaire Composé
                     </Link>
                     <Link
-                      onClick={() => setIsOpen(false)}
                       href="/dissertation"
                       className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                      onClick={() => setIsOpen(false)}
                     >
                       Dissertation
                     </Link>
                     <Link
-                      onClick={() => setIsOpen(false)}
                       href="/essai"
                       className="block px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
+                      onClick={() => setIsOpen(false)}
                     >
                       Essai
                     </Link>
@@ -225,16 +235,16 @@ export default function Navbar() {
             </div>
 
             <Link
-              onClick={() => setIsOpen(false)}
               href="/exams"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d]"
+              onClick={() => setIsOpen(false)}
             >
               Examens
             </Link>
             <Link
-              onClick={() => setIsOpen(false)}
               href="/about"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d]"
+              onClick={() => setIsOpen(false)}
             >
               À propos
             </Link>
@@ -249,4 +259,3 @@ export default function Navbar() {
     </nav>
   )
 }
-

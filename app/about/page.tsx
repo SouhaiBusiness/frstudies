@@ -30,7 +30,8 @@ export default function AboutPage() {
               des ressources éducatives de haute qualité pour aider les
               étudiants à exceller dans leurs cours de langue française, de
               linguistique, de littérature et surtout de développer leurs
-              capacités culturelles.
+              capacités culturelles. Notre équipe travaille régulièrement 
+              à créer du contenu utile, de qualité et d'ajouter de nouvelles fonctionalités à cette plateforme.
             </p>
 
             {/* Feature 1 */}
@@ -58,7 +59,7 @@ export default function AboutPage() {
               <div>
                 <h3 className='text-xl font-bold mb-2'>Cours</h3>
                 <p className='text-gray-300'>
-                  Cours conçus d'une manière accessible et rapides par semestre
+                  Cours structurés conçus d'une manière accessible et rapides par semestre
                   et par modules.
                 </p>
               </div>
@@ -90,7 +91,7 @@ export default function AboutPage() {
               <div>
                 <h3 className='text-xl font-bold mb-2'>Examens</h3>
                 <p className='text-gray-300'>
-                  Sujets d'examens passés et réponses modèles.
+                Vous trouverez des sujets d'examens passés et réponses modèles.
                 </p>
               </div>
             </div>
@@ -121,7 +122,7 @@ export default function AboutPage() {
 
               <div>
                 <h3 className='text-xl font-bold mb-2'>
-                  Rédaction et production littéraire
+                   Rédaction et production littéraire
                 </h3>
                 <p className='text-gray-300'>
                   Ressources pour des sujets spécialisés comme le Commentaire
@@ -199,7 +200,7 @@ export default function AboutPage() {
             <h2 className='text-2xl font-bold mt-8 mb-4'>Notre mission</h2>
             <p className='mb-4'>
               Nous visons à rendre les études de français plus accessibles et
-              captivantes pour les étudiants de tous niveaux. En fournissant un
+              captivantes pour les étudiants de tous les niveaux. En fournissant un
               dépôt centralisé de matériel de cours, de quiz pratiques et de
               ressources pour les examens, nous aidons les étudiants à se
               préparer efficacement pour leur parcours académique.
@@ -208,7 +209,7 @@ export default function AboutPage() {
             <h2 className='text-2xl font-bold mt-8 mb-4'>Nous offrons</h2>
             <ul className='list-disc pl-6 space-y-2 mb-4'>
               <li>
-                Matériel de cours complet organisé par semestre et par sujet
+                Matériel de cours complet organisé par semestre et par module
               </li>
               <li>
                 Quiz interactifs pour tester et renforcer vos connaissances
@@ -246,7 +247,7 @@ export default function AboutPage() {
           {/* Trusted by section */}
           <div className='mt-16 text-center'>
             <p className='text-sm text-gray-400 mb-6'>
-              Vous êtes professeur, lauréat d'un master, doctorant ou un
+              Vous êtes professeur, doctorant ou un
               étudiant en doctorat, ayant la volonté d'enrichir notre contenu.
               notre platforme vous est ouverte. Envoyez votre CV et/ou portfolio
               sur l'adresse email{' '}
@@ -254,7 +255,7 @@ export default function AboutPage() {
                 href='mailto:support@frstudies.fr '
                 className='text-blue-500 hover:underline'
               >
-                support@frstudies.fr{' '}
+                support.frstudies@gmail.com{' '}
               </Link>
             </p>
             <h1 className='font-bold mb-8 mt-8'>Disciplines </h1>
