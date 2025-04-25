@@ -23,24 +23,33 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+
   return (
     <ClerkProvider>
       <html lang='fr'>
       <head>
           {/* Google Analytics Script */}
-          <Script
-            strategy='afterInteractive'
-            src='https://www.googletagmanager.com/gtag/js?id=G-HPZ9LB6YP3'
-          />
-          <Script id='google-analytics' strategy='afterInteractive'>
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-HPZ9LB6YP3');
-            `}
-          </Script>
+          {gaMeasurementId && (
+            <>
+              <Script
+                strategy='afterInteractive'
+                src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              />
+              <Script id='google-analytics' strategy='afterInteractive'>
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaMeasurementId}');
+                `}
+              </Script>
+            </>
+          )}
         </head>
+        
         <body className={`${inter.className} min-h-screen flex flex-col`}>
            
 
