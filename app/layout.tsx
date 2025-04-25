@@ -23,8 +23,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  console.log("GA ID:", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
-  return (
+   return (
     <ClerkProvider>
       <html lang="fr">
         
@@ -33,17 +32,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
        
           {/*  Google Analytics Scripts */}
           <Script 
-            strategy="afterInteractive" 
-            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
-            `}
-          </Script>
+  strategy="afterInteractive" 
+  src="https://www.googletagmanager.com/gtag/js?id=G-HPZ9LB6YP3"
+/>
+<Script id="google-analytics" strategy="afterInteractive">
+  {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HPZ9LB6YP3');
+  `}
+</Script>
 
         <NotificationProvider>
           <Navbar />
