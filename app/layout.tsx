@@ -7,7 +7,9 @@ import "./globals.css"
 import Aos from '@/components/Aos';
 import ScrollToTopBtn from "@/components/ScrollToTopBtn"
 import { NotificationProvider } from "@/components/notification"
-
+import NavigationEvents from "@/components/navigation-events" 
+import Script from "next/script" 
+ 
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -24,7 +26,23 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <ClerkProvider>
       <html lang="fr">
+
         <body className={`${inter.className} min-h-screen flex flex-col`}>
+       
+          {/*  Google Analytics Scripts */}
+          <Script 
+            strategy="afterInteractive" 
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+            `}
+          </Script>
+
         <NotificationProvider>
           <Navbar />
           <Aos>
@@ -32,6 +50,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </Aos>
       <ScrollToTopBtn />
           <Footer />
+          {/*  Navigation Events for Google analytics */}
+          <NavigationEvents />
           </NotificationProvider>
         </body>
       </html>
