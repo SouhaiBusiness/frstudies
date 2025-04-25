@@ -23,9 +23,11 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  console.log("GA ID:", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID);
   return (
     <ClerkProvider>
       <html lang="fr">
+        
 
         <body className={`${inter.className} min-h-screen flex flex-col`}>
        
