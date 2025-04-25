@@ -167,6 +167,35 @@ export default function ContactPage() {
                     <path d='M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84' />
                   </svg>
                 </a>
+                <a
+  href="#"
+  className="bg-[#0e2d6d] shadow-lg p-2 rounded-full flex justify-center items-center text-white hover:opacity-90 transition-colors"
+ >
+  <svg
+    className="h-5 w-5"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.5h4V24h-4V8.5zM8.5 8.5h3.7v2.1h.1c.5-.9 1.7-2.1 3.6-2.1 3.8 0 4.5 2.5 4.5 5.8V24h-4v-8.3c0-2-.03-4.5-2.75-4.5-2.75 0-3.2 2.2-3.2 4.3V24h-4V8.5z" />
+  </svg>
+</a>
+
+<a
+  href="#"
+  className="bg-[#0e2d6d] shadow-lg p-2 rounded-full text-white hover:opacity-90 transition-colors"
+ >
+  <svg
+    className="h-5 w-5"
+    fill="currentColor"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+  >
+    <path d="M20.298 3.27h-3.705l-3.385 4.435L9.927 3.27H4.37l5.492 7.5L3.702 20.73h3.705l3.625-4.745 3.405 4.745h5.557l-5.737-7.825 5.046-6.635zM16.91 18.23h-1.762l-6.337-8.855h1.76l6.34 8.855z" />
+  </svg>
+</a>
+
+
               </div>
             </div>
           </div>
