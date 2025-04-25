@@ -102,7 +102,7 @@ export default function ContactPage() {
                 <Mail className='h-6 w-6 text-blue-700 mr-3 mt-0.5' />
                 <div>
                   <h3 className='font-semibold'>Adresse Email</h3>
-                  <p className='text-gray-600'>info@frstudies.com</p>
+                  <p className='text-gray-600'>support.frstudies@gmail.com</p>
                 </div>
               </div>
 
@@ -221,7 +221,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className='w-full shadow-lg px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                  placeholder='John Doe'
+                  placeholder='Sam Doe'
                 />
               </div>
 
@@ -240,7 +240,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   className='w-full shadow-lg px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                  placeholder='john@example.com'
+                  placeholder='sam@exemple.com'
                 />
               </div>
             </div>
@@ -307,7 +307,7 @@ export default function ContactPage() {
                 required
                 rows={6}
                 className='w-full shadow-lg px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                placeholder='How can we help you?'
+                placeholder='Comment pouvons-nous vous aider?'
               ></textarea>
             </div>
 
