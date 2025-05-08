@@ -25,13 +25,14 @@ export interface Blog {
 }
 
 export interface FileItem {
-  id: string
-  name: string
-  fileUrl: string
-  fileSize: number
-  uploadedBy: string
-  uploadedById: string
-  uploadedAt: Date
+  id: string;
+  name: string;
+  fileUrl: string;
+  publicId: string;  // Add this line
+  fileSize: number;
+  uploadedBy: string;
+  uploadedById: string;
+  uploadedAt: Date;
 }
 
 export interface Module {
@@ -44,7 +45,7 @@ export interface Module {
   createdAt: Date
   updatedAt: Date
 }
-
+export type Filiere = Module["filiere"];
 
 // Add to your existing models.ts
 export interface NewsletterSubscriber {

@@ -190,30 +190,17 @@ export default async function Home() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/linguistics/phonetics" className="text-[#0e2d6d] hover:underline">
+                  <Link href="/linguistics" className="text-[#0e2d6d] hover:underline">
                     Cours de phonétique française
                   </Link>
                 </li>
                 <li>
-                  <Link href="/literature/poetry" className="text-[#0e2d6d] hover:underline">
+                  <Link href="/literature" className="text-[#0e2d6d] hover:underline">
                     Analyse poétique
                   </Link>
                 </li>
               </ul>
             </div>
-
-            {/*<div className="bg-[#0e2d6d] text-white rounded-lg shadow-sm p-4" data-aos='fade-left'>
-              <h3 className="text-lg font-semibold mb-3">Rejoignez-nous</h3>
-              <p className="text-sm mb-4">
-                Soyez le premier à recevoir nos contenus et ressources exclusives !
-              </p>
-              <Link
-                href="/sign-up"
-                className="block w-full text-center bg-white text-[#0e2d6d] font-medium py-2 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                S'inscrire gratuitement
-              </Link>
-            </div>*/}
 
             <NewsletterSignup />
           </div>

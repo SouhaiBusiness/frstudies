@@ -255,19 +255,21 @@ const categories = [
                     {expandedLiteratureModules.includes(module._id) && (
                       <div className="p-3 bg-white">
                         <ul className="space-y-2">
-                          {module.files.map((file) => (
-                            <li key={file.id}>
-                              <Link
-                                href={file.fileUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center text-blue-600 hover:underline"
-                              >
-                                <FileText className="h-4 w-4 mr-2" />
-                                {file.name}
-                              </Link>
-                            </li>
-                          ))}
+                        // Instead of using /api/files endpoint, use the direct Cloudinary URL
+{module.files.map((file) => (
+  <li key={file.id}>
+    <Link
+      href={file.fileUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center text-blue-600 hover:underline"
+      download
+    >
+      <FileText className="h-4 w-4 mr-2" />
+      {file.name}
+    </Link>
+  </li>
+))}
                         </ul>
                       </div>
                     )}
