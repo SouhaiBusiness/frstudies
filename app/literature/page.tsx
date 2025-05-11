@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Loader2 } from "lucide-react"
 import SemesterFilter from "@/components/semester-filter"
 import ModuleList from "@/components/module-list"
+import Link from "next/link"
 
 // Define the modules for literature by semester
 const literatureModules = {
@@ -299,6 +300,8 @@ export default function LiteraturePage() {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explorez nos ressources en littérature française, organisées par semestre et par module
         </p>
+        <p className="text-red-400">Vous devez vous inscrire ou vous connecter en cliquant sur <Link href="/signIn" className="underline">signIn</Link>, 
+        pour avoir acces aux cours.</p>
       </div>
 
       <SemesterFilter activeSemester={activeSemester} onSemesterChange={setActiveSemester} />
