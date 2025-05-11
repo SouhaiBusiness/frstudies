@@ -300,7 +300,7 @@ export default function LiteraturePage() {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explorez nos ressources en littérature française, organisées par semestre et par module
         </p>
-        <p className="text-red-400">Vous devez vous inscrire ou vous connecter en cliquant sur <Link href="/signIn" className="underline">signIn</Link>, 
+        <p className="text-red-400">Vous devez vous inscrire ou vous connecter en cliquant sur <Link href="/SignIn" className="underline">signIn</Link>, 
         pour avoir acces aux cours.</p>
       </div>
 
