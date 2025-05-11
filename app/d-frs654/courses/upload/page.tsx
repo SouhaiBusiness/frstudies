@@ -90,8 +90,8 @@ const modulesByFiliereAndSemester = {
     ],
     '6': [
       {
-        value: 'Théories du texte littéraire',
-        label: 'Théories du texte littéraire',
+        value: 'Théories du texte littéraire2',
+        label: 'Théories du texte littéraire 2',
       },
       { value: 'Etude des médias', label: 'Etude des médias' },
       { value: 'Les écritures de soi', label: 'Les écritures de soi' },
@@ -257,8 +257,8 @@ const modulesByFiliereAndSemester = {
     ],
     '5': [
       {
-        value: 'théories-du-text-littéraire',
-        label: 'Théories-du-text-littéraire',
+        value: 'théories-du-texte-littéraire',
+        label: 'Théories-du-texte-littéraire',
       },
       { value: 'etudes-postcoloniales', label: 'Etudes postcoloniales' },
       { value: 'Littérature-comparée', label: 'Littérature comparée' },

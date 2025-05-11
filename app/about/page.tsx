@@ -249,7 +249,7 @@ export default function AboutPage() {
             <p className='text-sm text-gray-400 mb-6'>
               Vous êtes professeur, doctorant ou un
               étudiant en doctorat, ayant la volonté d'enrichir notre contenu.
-              notre platforme vous est ouverte. Envoyez votre CV et/ou portfolio,
+              notre platforme vous est ouverte. Envoyez votre CV et/ou portfolio
               sur l'adresse email{' '}
               <Link
                 href='mailto:support@frstudies.fr '
