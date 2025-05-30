@@ -6,17 +6,7 @@ import SemesterFilter from "@/components/semester-filter"
 import ModuleList from "@/components/module-list"
 import Link from "next/link"
 
-export const metadata = {
-  title: 'Linguistique Française - ETUDESFRANÇAISES',
-  description: 'Ressources complètes en linguistique française pour tous les niveaux universitaires',
-  openGraph: {
-    title: 'Linguistique Française - ETUDESFRANÇAISES',
-    description: 'Ressources complètes en linguistique française',
-    url: 'https://frstudies.vercel.app/linguistics',
-    // Keep other OG properties from root metadata
-  },
-  // Other page-specific metadata
-}
+ 
 // Define the modules for linguistics by semester (fallback data)
 const linguisticsModules = {
   1: [
