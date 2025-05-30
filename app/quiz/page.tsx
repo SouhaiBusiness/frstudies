@@ -2,11 +2,11 @@ import QuizCards from '@/components/quiz/quiz-cards';
 import Image from 'next/image';
 
 export const metadata = {
-  title: 'Quiz Française - ETUDESFRANÇAISES',
+  title: 'Quiz de français - ETUDESFRANÇAISES',
   description:
     'Quiz interactifs dans différentes disciplines pour tous les niveaux universitaires',
   openGraph: {
-    title: 'Quiz Française - ETUDESFRANÇAISES',
+    title: 'Quiz de français - ETUDESFRANÇAISES',
     description: 'Quiz interactifs, éducatifs et ludiques dans différentes disciplines',
     url: 'https://frstudies.vercel.app/quiz',
     // Keep other OG properties from root metadata
