@@ -6,19 +6,7 @@ import { ChevronDown, FileText, Loader2 } from "lucide-react"
 import CategoryButtons from "@/components/category-buttons"
 import NewsletterSignup from "@/components/newsletter-signup"
 
-export const metadata = {
-  title: 'Exams - ETUDESFRANÇAISES',
-  description:
-    "Mettre en pratique vos connaissances en travaillant sur des modèles d’examens concrets.",
-  openGraph: {
-    title: 'Examens - ETUDESFRANÇAISES',
-    description: "Mettre en pratique vos connaissances en travaillant sur des modèles d’examens concrets.",
-    url: 'https://frstudies.vercel.app/exams',
-    // Keep other OG properties from root metadata
-  },
-  // Other page-specific metadata
-};
-
+ 
 interface ModuleFile {
   id: string
   name: string
