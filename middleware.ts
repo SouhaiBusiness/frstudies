@@ -19,6 +19,8 @@ export default authMiddleware({
     "/sign-up",
     "/signin",
     "/signup",
+    "/sitemap.xml", 
+    "/robots.txt",
   ],
   afterAuth(auth, req) {
     // Handle users who aren't authenticated
@@ -37,5 +39,8 @@ export default authMiddleware({
 })
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-}
+  matcher: [
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+  ],
+};
+

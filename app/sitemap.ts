@@ -1,14 +1,32 @@
-// app/sitemap.ts
-import { MetadataRoute } from 'next';
+import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://frstudies.vercel.app';
-  const routes = ['', '/about', '/linguistics', '/literature', '/quiz', '/exams', '/articles', '/commentaire-compose', '/dissertation', '/essai',];
+  const baseUrl = "https://frstudies.vercel.app";
   
-  return routes.map((route) => ({
+  const staticRoutes = [
+    "",
+    "/about",
+    "/linguistics",
+    "/literature",
+    "/quiz",
+    "/exams",
+    "/articles",
+    "/commentaire-compose",
+    "/dissertation",
+    "/essai",
+    "/sign-in",
+    "/sign-up",
+  ];
+
+  return staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: route === '' ? 'weekly' : 'monthly',
-    priority: route === '' ? 1 : 0.8,
+    changeFrequency: (
+      route === "" || 
+      route === "/articles" || 
+      route === "/linguistics" || 
+      route === "/literature"
+    ) ? "weekly" : "monthly",
+    priority: route === "" ? 1 : 0.8,
   }));
 }
