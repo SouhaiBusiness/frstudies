@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className='text-lg font-semibold mb-4'>Quick Links</h3>
+            <h3 className='text-lg font-semibold mb-4'>Liens rapides</h3>
             <ul className='space-y-2'>
               <li>
                 <Link href='/' className='text-gray-300 hover:text-white'>
@@ -119,7 +119,7 @@ export default function Footer() {
         </div>
 
         <div className='border-t border-gray-700 mt-8 pt-6 text-center text-gray-300'>
-          <p>&copy; {currentYear} ETUDESFRANÇAISES. All rights reserved.</p>
+          <p>&copy; {currentYear} ETUDESFRANÇAISES. Tous les droits réservés.</p>
         </div>
       </div>
     </footer>

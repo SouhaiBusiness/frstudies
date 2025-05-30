@@ -6,6 +6,19 @@ import clientPromise from "@/lib/mongodb"
 import { Blog } from "@/lib/models"
 import MainSearchBar from "@/components/main-search-bar"
 
+export const metadata = {
+  title: 'Articles récents - ETUDESFRANÇAISES',
+  description:
+    'Plusieurs articles, différents sujets. Chercher et trouver des articles dans les thèmes qui vous interssent.',
+  openGraph: {
+    title: 'Articles récents - ETUDESFRANÇAISES',
+    description: 'Plusieurs articles, différents sujets. Chercher et trouver des articles dans les thèmes qui vous interssent.',
+    url: 'https://frstudies.vercel.app/articles',
+    // Keep other OG properties from root metadata
+  },
+  // Other page-specific metadata
+};
+
 interface Article {
   _id: string
   title: string

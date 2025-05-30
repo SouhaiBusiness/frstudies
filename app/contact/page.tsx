@@ -5,6 +5,18 @@ import type React from 'react';
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 
+export const metadata = {
+  title: 'Contacter nous - ETUDESFRANÇAISES',
+  description:
+    'Pour nous contacter, remplissez le formulaire ci-dessous.',
+  openGraph: {
+    title: 'Contacter nous - ETUDESFRANÇAISES',
+    description: 'Pour nous contacter, remplissez le formulaire ci-dessous.',
+    // Keep other OG properties from root metadata
+  },
+  // Other page-specific metadata
+};
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',

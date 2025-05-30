@@ -16,6 +16,24 @@ export const metadata = {
   title: 'ETUDESFRANÇAISES - Ressources pour les étudiants de français',
   description:
     'Une plateforme destinée aux étudiants en études de français pour accéder aux cours, quiz et examens.',
+    keywords: ['études françaises', 'linguistique', 'littérature', 'français', 'cours de français', 'ressources pédagogiques', 
+      'communication', 'didactique', 'traduction', 'philosophie', 'commentaire composé', 'essai', 'dissertation', 'sociologie', 'psychologie'],
+      openGraph: {
+    title: 'ETUDESFRANÇAISES',
+    description: 'Ressources pour les étudiants de français',
+    url: 'https://frstudies.vercel.app',
+    siteName: 'ETUDESFRANÇAISES',
+    images: [
+      {
+        url: 'https://frstudies.vercel.app/og-image.png', // You'll need to create this image
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'fr_FR',
+    type: 'website',
+  },
+   
   icons: {
     icon: '/favicon.png', // or favicon.png if you want to use PNG
     shortcut: '/favicon.png',

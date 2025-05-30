@@ -6,6 +6,17 @@ import SemesterFilter from "@/components/semester-filter"
 import ModuleList from "@/components/module-list"
 import Link from "next/link"
 
+export const metadata = {
+  title: 'littérature Française - ETUDESFRANÇAISES',
+  description: 'Ressources complètes en littérature française pour tous les niveaux universitaires',
+  openGraph: {
+    title: 'littérature Française - ETUDESFRANÇAISES',
+    description: 'Ressources complètes en littérature française',
+    url: 'https://frstudies.vercel.app/literature',
+    // Keep other OG properties from root metadata
+  },
+  // Other page-specific metadata
+}
 // Define the modules for literature by semester
 const literatureModules = {
   1: [

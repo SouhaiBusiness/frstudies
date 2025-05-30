@@ -2,6 +2,18 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Facebook, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
 
+export const metadata = {
+  title: 'À propos - ETUDESFRANÇAISES',
+  description:
+    "Plus d'informations sur notre équipe et nos activités.",
+  openGraph: {
+    title: 'À propos - ETUDESFRANÇAISES',
+    description: "Plus d'informations sur notre équipe et nos activités.",
+    url: 'https://frstudies.vercel.app/about',
+    // Keep other OG properties from root metadata
+  },
+  // Other page-specific metadata
+};
 export default function AboutPage() {
   return (
     <main className='container mx-auto px-4 py-8'>
