@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://frstudies.vercel.app';
-  const routes = ['', '/about', '/linguistics', '/literature', '/quiz', '/exams', '/articles'];
+  const routes = ['', '/about', '/linguistics', '/literature', '/quiz', '/exams', '/articles', '/commentaire-compose', '/dissertation', '/essai',];
   
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
