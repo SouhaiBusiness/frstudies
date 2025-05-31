@@ -1,3 +1,4 @@
+// middleware.ts - version corrigée
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
@@ -21,6 +22,17 @@ export default authMiddleware({
     "/signup",
     "/sitemap.xml", 
     "/robots.txt",
+    "/google60bebd4a973f0e4f.html", // Ajout de cette ligne
+  ],
+  ignoredRoutes: [
+    "/sitemap.xml",
+    "/robots.txt",
+    "/google60bebd4a973f0e4f.html",
+    "/favicon.ico",
+    "/og-image.png",
+    "/api/webhooks/clerk", // Si vous utilisez des webhooks Clerk
+    "/_next/static/(.*)",
+    "/_next/image(.*)"
   ],
   afterAuth(auth, req) {
     // Handle users who aren't authenticated
@@ -40,7 +52,6 @@ export default authMiddleware({
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|google60bebd4a973f0e4f.html).*)",
   ],
 };
-
