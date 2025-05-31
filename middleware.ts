@@ -29,10 +29,8 @@ export default authMiddleware({
     "/robots.txt",
     "/google60bebd4a973f0e4f.html",
     "/favicon.ico",
-    "/og-image.png",
     "/api/webhooks/clerk", // Si vous utilisez des webhooks Clerk
-    "/_next/static/(.*)",
-    "/_next/image(.*)"
+    "/_next/static/(.*)"
   ],
   afterAuth(auth, req) {
     // Handle users who aren't authenticated
