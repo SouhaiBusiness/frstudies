@@ -32,19 +32,20 @@ export default authMiddleware({
     "/api/webhooks/clerk", // Si vous utilisez des webhooks Clerk
     "/_next/static/(.*)"
   ],
-  afterAuth(auth, req) {
-    // Handle users who aren't authenticated
+   afterAuth(auth, req) {
+    const { pathname } = req.nextUrl;
+    
+    // Autoriser les crawlers à accéder aux routes publiques
+    const isCrawler = req.headers.get('user-agent')?.match(/bot|crawl|spider|googlebot/i);
+    if (isCrawler && pathname.match(/^\/(sitemap\.xml|robots\.txt|google.*\.html)$/i)) {
+      return NextResponse.next();
+    }
+
     if (!auth.userId && !auth.isPublicRoute) {
-      return redirectToSignIn({ returnBackUrl: req.url })
+      return redirectToSignIn({ returnBackUrl: req.url });
     }
 
-    // If the user is logged in and trying to access a protected route, allow them to access route
-    if (auth.userId && !auth.isPublicRoute) {
-      return NextResponse.next()
-    }
-
-    // Allow users visiting public routes to access them
-    return NextResponse.next()
+    return NextResponse.next();
   },
 })
 
