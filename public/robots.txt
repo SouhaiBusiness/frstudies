@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
-Disallow: /private/
-Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/static
+Disallow: /_next/image
 
 Sitemap: https://frstudies.vercel.app/sitemap.xml

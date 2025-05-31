@@ -9,6 +9,35 @@ import { Blog } from "@/lib/models"
 import MainSearchBar from "@/components/main-search-bar"
 import NewsletterSignup from "@/components/newsletter-signup"
   
+export const metadata = {
+  title: 'ETUDESFRANÇAISES - Ressources pour les étudiants de français',
+  description: 'Plateforme complète pour les étudiants en français avec cours, quiz et examens',
+  alternates: {
+    canonical: 'https://frstudies.vercel.app',
+  },
+  openGraph: {
+    title: 'ETUDESFRANÇAISES',
+    description: 'Ressources pour les étudiants de français',
+    url: 'https://frstudies.vercel.app',
+    siteName: 'ETUDESFRANÇAISES',
+    images: [
+      {
+        url: 'https://frstudies.vercel.app/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ETUDESFRANÇAISES',
+      },
+    ],
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ETUDESFRANÇAISES',
+    description: 'Ressources pour les étudiants de français',
+    images: ['https://frstudies.vercel.app/og-image.png'],
+  },
+}
 // Define the Article interface to match what ArticleGrid expects
 interface Article {
   _id: string

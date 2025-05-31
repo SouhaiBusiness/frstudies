@@ -66,6 +66,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </Script>
             </>
           )}
+          <meta name="google-site-verification" content="4opBcAx8n5wHOMKSA5OXCPnhfzrkehvplBlaic-wSMU" />
         </head>
         
         <body className={`${inter.className} min-h-screen flex flex-col`}>
