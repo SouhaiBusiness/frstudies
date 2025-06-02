@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ClerkProvider>
       <html lang='fr'>
       <head>
-
+         <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           {/* Google Analytics Script */}
           {gaMeasurementId && (
