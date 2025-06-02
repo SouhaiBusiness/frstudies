@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ClerkProvider>
       <html lang='fr'>
       <head>
-          <meta name="google-site-verification" content="4opBcAx8n5wHOMKSA5OXCPnhfzrkehvplBlaic-wSMU" />
+
           
           {/* Google Analytics Script */}
           {gaMeasurementId && (
