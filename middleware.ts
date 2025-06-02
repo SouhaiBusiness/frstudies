@@ -1,5 +1,5 @@
 // middleware.ts - Updated Version
-import { authMiddleware } from "@clerk/nextjs";
+import { authMiddleware, redirectToSignIn  } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export default authMiddleware({
@@ -17,36 +17,28 @@ export default authMiddleware({
     "/articles(.*)",
     "/sign-in(.*)",
     "/sign-up(.*)",
-    "/sitemap.xml",
-    "/robots.txt"
   ],
-  ignoredRoutes: [
-    "/_next/static(.*)",
-    "/_next/image(.*)",
-    "/favicon.ico",
-    "/api/webhooks/clerk"
-  ],
-  afterAuth(auth, req) {
-    const { pathname } = req.nextUrl;
-    
-    // Allow all public routes and static files
-    if (
-      auth.isPublicRoute ||
-      pathname.startsWith('/_next/') ||
-      pathname.startsWith('/api/') ||
-      pathname.endsWith('.ico') ||
-      pathname.endsWith('.xml') ||
-      pathname.endsWith('.txt')
-    ) {
-      return NextResponse.next();
-    }
+ // ignoredRoutes: [
+ //   "/_next/static(.*)",
+  //  "/_next/image(.*)",
+   // "/favicon.ico",
+  //  "/api/webhooks/clerk"
+  //],
+ afterAuth(auth, req) {
 
-    if (!auth.userId) {
-      return NextResponse.redirect(new URL('/sign-in', req.url));
-    }
+    if (!auth.userId && !auth.isPublicRoute) {
 
-    return NextResponse.next();
-  }
+
+      return redirectToSignIn({ returnBackUrl: req.url })
+    }
+      if (auth.userId && !auth.isPublicRoute) {
+
+      return NextResponse.next()
+      }
+      return NextResponse.next()
+  },
+
+
 });
 
 export const config = {
