@@ -1,81 +1,54 @@
-import { authMiddleware, redirectToSignIn } from "@clerk/nextjs"
-
-import { NextResponse } from "next/server"
-
-
+// middleware.ts - Updated Version
+import { authMiddleware } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export default authMiddleware({
-
   publicRoutes: [
-
     "/",
-
     "/about",
-
     "/quiz",
-
     "/linguistics",
-
     "/literature",
-
     "/exams",
-
     "/commentaire-compose",
-
     "/dissertation",
-
     "/essai",
-
-    "/api/blogs",
-
-    "/api/blogs/(.*)",
-
-    "/articles/(.*)",
-
-    "/sign-in",
-
-    "/sign-up",
-
-    "/signin",
-
-    "/signup",
-
+    "/api/blogs(.*)",
+    "/articles(.*)",
+    "/sign-in(.*)",
+    "/sign-up(.*)",
+    "/sitemap.xml",
+    "/robots.txt"
   ],
-
+  ignoredRoutes: [
+    "/_next/static(.*)",
+    "/_next/image(.*)",
+    "/favicon.ico",
+    "/api/webhooks/clerk"
+  ],
   afterAuth(auth, req) {
-
-    // Handle users who aren't authenticated
-
-    if (!auth.userId && !auth.isPublicRoute) {
-
-      return redirectToSignIn({ returnBackUrl: req.url })
-
+    const { pathname } = req.nextUrl;
+    
+    // Allow all public routes and static files
+    if (
+      auth.isPublicRoute ||
+      pathname.startsWith('/_next/') ||
+      pathname.startsWith('/api/') ||
+      pathname.endsWith('.ico') ||
+      pathname.endsWith('.xml') ||
+      pathname.endsWith('.txt')
+    ) {
+      return NextResponse.next();
     }
 
-
-
-    // If the user is logged in and trying to access a protected route, allow them to access route
-
-    if (auth.userId && !auth.isPublicRoute) {
-
-      return NextResponse.next()
-
+    if (!auth.userId) {
+      return NextResponse.redirect(new URL('/sign-in', req.url));
     }
 
-
-
-    // Allow users visiting public routes to access them
-
-    return NextResponse.next()
-
-  },
-
-})
-
-
+    return NextResponse.next();
+  }
+});
 
 export const config = {
-
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-
-}
+};
