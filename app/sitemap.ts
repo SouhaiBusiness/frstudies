@@ -9,11 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/linguistics',
     '/literature',
     '/exams',
-    '/commentaire-compose',
-    '/dissertation',
-    '/essai',
-    '/sign-in',
-    '/sign-up',
   ];
 
   return routes.map((route) => ({
