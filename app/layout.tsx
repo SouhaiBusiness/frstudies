@@ -23,20 +23,13 @@ export const metadata = {
     description: 'Ressources pour les étudiants de français',
     url: 'https://frstudies.vercel.app',
     siteName: 'ETUDESFRANÇAISES',
-    images: [
-      {
-        url: 'https://frstudies.vercel.app/og-image.png', // You'll need to create this image
-        width: 1200,
-        height: 630,
-      },
-    ],
     locale: 'fr_FR',
     type: 'website',
   },
    
   icons: {
-    icon: '/favicon.png', // or favicon.png if you want to use PNG
-    shortcut: '/favicon.png',
+    icon: '/favicon.ico', // or favicon.png if you want to use PNG
+    shortcut: '/favicon.ico',
   },
 };
 
