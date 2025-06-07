@@ -162,9 +162,11 @@ const categories = [
     <main className="container mx-auto px-4 py-8 ">
       <h1 className="text-3xl font-bold mb-6 text-center text-[#0e2d6d]">Session Exams</h1>
       <p className="text-center mb-8 max-w-2xl mx-auto">
-        Accédez à des sujets d'examens passés et à des supports d'étude pour vous aider à préparer vos examens de
+        Accédez à des sujets d'examens passés et des supports d'étude pour vous aider à préparer vos examens de
         français.
       </p>
+ <p className="text-red-400">Vous devez vous inscrire ou vous connecter 
+  en cliquant sur <Link href="/sign-in" className="underline">signIn</Link>, pour accéder facilement aux examens.</p>
 
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
