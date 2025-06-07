@@ -165,7 +165,7 @@ const categories = [
         Accédez à des sujets d'examens passés et des supports d'étude pour vous aider à préparer vos examens de
         français.
       </p>
- <p className="text-red-400">Vous devez vous inscrire ou vous connecter 
+ <p className="text-red-400 mb-2 mt-2 text-center">Vous devez vous inscrire ou vous connecter 
   en cliquant sur <Link href="/sign-in" className="underline">signIn</Link>, pour accéder facilement aux examens.</p>
 
       {isLoading ? (
