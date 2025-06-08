@@ -42,7 +42,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <ClerkProvider>
       <html lang='fr'>
       <head>
-         
+        {/* Google search console meta tag  */}
+         <meta name="google-site-verification" content="4opBcAx8n5wHOMKSA5OXCPnhfzrkehvplBlaic-wSMU" />
           {/* Google Analytics Script */}
           {gaMeasurementId && (
             <>
