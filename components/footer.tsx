@@ -59,6 +59,16 @@ export default function Footer() {
                   À propos
                 </Link>
               </li>
+              <li>
+                <Link href='/terms-of-use' className='text-gray-300 hover:text-white'>
+                  Conditions d'utilisation
+                </Link>
+              </li>
+              <li>
+                <Link href='/privacy&policy' className='text-gray-300 hover:text-white'>
+                  Politique et confidentialité
+                </Link>
+              </li>
             </ul>
           </div>
 

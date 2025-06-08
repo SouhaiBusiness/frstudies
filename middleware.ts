@@ -17,6 +17,8 @@ export default authMiddleware({
     "/articles(.*)",
     "/sign-in(.*)",
     "/sign-up(.*)",
+    "/terms-of-use",
+    "/privacy&policy",
   ],
  // ignoredRoutes: [
  //   "/_next/static(.*)",
