@@ -1,52 +1,46 @@
-import { authMiddleware, redirectToSignIn } from '@clerk/nextjs';
-import { NextRequest, NextResponse } from 'next/server';
-
-const publicRoutes = [
-  '/',
-  '/about',
-  '/articles(.*)',
-  '/linguistics',
-  '/literature',
-  '/exams',
-  '/quiz',
-  '/sitemap.xml',
-  '/robots.txt',
-  '/terms-of-use',
-  '/privacy-policy',
-  '/api/courses(.*)'
-];
-
-const isBot = (req: NextRequest) => {
-  const userAgent = req.headers.get('user-agent') || '';
-  return /Googlebot|bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot/i.test(userAgent);
-};
+// middleware.ts - Updated Version
+import { authMiddleware, redirectToSignIn  } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export default authMiddleware({
-  publicRoutes,
-  ignoredRoutes: [
-    '/_next/static(.*)',
-    '/_next/image(.*)',
-    '/favicon.ico',
-    '/api/webhooks/clerk'
+  publicRoutes: [
+    "/",
+    "/about",
+    "/quiz",
+    "/linguistics",
+    "/literature",
+    "/exams",
+    "/commentaire-compose",
+    "/dissertation",
+    "/essai",
+    "/api/blogs(.*)",
+    "/articles(.*)",
+    "/sign-in(.*)",
+    "/sign-up(.*)",
   ],
-  afterAuth: (auth, req) => {
-    // Autoriser les bots à crawler toutes les pages
-    if (isBot(req)) {
-      return NextResponse.next();
-    }
+ // ignoredRoutes: [
+ //   "/_next/static(.*)",
+  //  "/_next/image(.*)",
+   // "/favicon.ico",
+  //  "/api/webhooks/clerk"
+  //],
+ afterAuth(auth, req) {
 
-    // Logique d'authentification normale pour les utilisateurs humains
-    if (!auth.userId && !publicRoutes.includes(req.nextUrl.pathname)) {
-      return redirectToSignIn({ returnBackUrl: req.url });
+    if (!auth.userId && !auth.isPublicRoute) {
+
+
+      return redirectToSignIn({ returnBackUrl: req.url })
     }
-    return NextResponse.next();
-  }
+      if (auth.userId && !auth.isPublicRoute) {
+
+      return NextResponse.next()
+      }
+      return NextResponse.next()
+  },
+
+
 });
 
 export const config = {
-  matcher: [
-    '/((?!.+\\.[\\w]+$|_next).*)',
-    '/',
-    '/(api|trpc)(.*)'
-  ]
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };
