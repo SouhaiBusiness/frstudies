@@ -13,12 +13,7 @@ export async function GET() {
     "linguistics",
     "exams",
     "quiz",
-    "commentaire-compose",
-    "dissertation",
-    "essai",
-    "terms-of-use",
-    "privacy&policy",
-    "articles",
+
   ]
 
   const staticUrls = staticPages.map((slug) => {
