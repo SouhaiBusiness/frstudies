@@ -1,8 +1,13 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /d-frs654/
+ Disallow: /d-frs654/
+Allow: /_next/static/
+Allow: /_next/image/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
 Crawl-delay: 2
 
-# Sitemaps
 Sitemap: https://frstudies.vercel.app/sitemap.xml
