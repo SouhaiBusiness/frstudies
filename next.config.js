@@ -2,11 +2,15 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/:path*',
+        source: '/(.*)',
         headers: [
           {
             key: 'Permissions-Policy',
             value: 'interest-cohort=()'
+          },
+          {
+            key: 'X-Robots-Tag',
+            value: 'all'
           }
         ]
       }
