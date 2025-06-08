@@ -19,6 +19,7 @@ export default authMiddleware({
     "/sign-up(.*)",
     "/terms-of-use",
     "/privacy&policy",
+    "/api/courses(.*),",
   ],
  // ignoredRoutes: [
  //   "/_next/static(.*)",
