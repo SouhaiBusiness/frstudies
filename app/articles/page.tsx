@@ -85,7 +85,7 @@ export default async function ArticlesPage({
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           {search 
             ? `${blogs.length} article${blogs.length !== 1 ? 's' : ''} trouvé${blogs.length !== 1 ? 's' : ''}`
-            : 'Découvrez nos articles sur la linguistique, la littérature et les méthodes d\'examen en français'}
+            : 'Découvrez nos articles sur la linguistique, la littérature, les méthodes d\'examen en français et plein d\'autres sujets'}
         </p>
       </div>
 
