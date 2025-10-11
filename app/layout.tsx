@@ -61,6 +61,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               </Script>
             </>
           )}
+
+          {/* cookies and consentement*/}
+          
+        <script type="text/javascript" data-cmp-ab="1"
+         src="https://cdn.consentmanager.net/delivery/autoblocking/9f720568e26c6.js"
+          data-cmp-host="c.delivery.consentmanager.net"
+           data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
+
         </head>
         
         <body className={`${inter.className} min-h-screen flex flex-col`}>
