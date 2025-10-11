@@ -28,7 +28,7 @@ export const metadata = {
   },
    
   icons: {
-    icon: '/favicon.ico', // or favicon.png if you want to use PNG
+    icon: '/favicon.ico',  
     shortcut: '/favicon.ico',
   },
 };
