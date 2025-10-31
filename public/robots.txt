@@ -1,0 +1,28 @@
+# Robots.txt for ETUDESFRANCAISE App
+# Generated for Google Search Console
+
+User-agent: *
+Allow: /
+Allow: /quiz
+Allow: /exams
+Allow: /linguistics
+Allow: /literature
+Allow: /contact
+Allow: /articles
+Allow: /about
+Allow: /privacy-policy
+Allow: /sign-in
+Allow: /sign-up
+Allow: /terms-of-use
+
+# Block admin pages
+Disallow: /admin/
+
+# Block API routes
+Disallow: /api/
+
+# Block auth check page
+Disallow: /auth-check/
+
+# Sitemap location
+Sitemap: https://frstudies.vercel.app/sitemap.xml
