@@ -1,25 +1,6 @@
-import { authMiddleware, redirectToSignIn } from "@clerk/nextjs"
-import { NextResponse } from "next/server"
-
-const isSearchEngineCrawler = (userAgent: string) => {
-  const crawlerPatterns = [
-    /googlebot/i,
-    /bingbot/i,
-    /slurp/i,
-    /duckduckbot/i,
-    /baiduspider/i,
-    /yandexbot/i,
-    /facebookexternalhit/i,
-    /twitterbot/i,
-    /linkedinbot/i,
-    /whatsapp/i,
-    /slotovod/i,
-    /googleother/i,
-    /inspection_tool/i,
-  ]
-
-  return crawlerPatterns.some((pattern) => pattern.test(userAgent))
-}
+// middleware.ts - Updated Version
+import { authMiddleware, redirectToSignIn  } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 
 export default authMiddleware({
   publicRoutes: [
@@ -39,23 +20,29 @@ export default authMiddleware({
     "/sitemap.xml",
     "/robots.txt",
   ],
-  afterAuth(auth, req) {
-    const userAgent = req.headers.get("user-agent") || ""
-    const isCrawler = isSearchEngineCrawler(userAgent)
-
-    if (isCrawler) {
-      // Allow all crawlers to pass through without any auth checks
-      return NextResponse.next()
-    }
+ // ignoredRoutes: [
+ //   "/_next/static(.*)",
+  //  "/_next/image(.*)",
+   // "/favicon.ico",
+  //  "/api/webhooks/clerk"
+  //],
+ afterAuth(auth, req) {
 
     if (!auth.userId && !auth.isPublicRoute) {
+
+
       return redirectToSignIn({ returnBackUrl: req.url })
     }
+      if (auth.userId && !auth.isPublicRoute) {
 
-    return NextResponse.next()
+      return NextResponse.next()
+      }
+      return NextResponse.next()
   },
-})
+
+
+});
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-}
+};
