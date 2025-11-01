@@ -1,4 +1,6 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import { createRouteMatcher } from "next/dist/server/future/helpers"
 
 // Define public routes that don't need authentication
 const isPublicRoute = createRouteMatcher([
@@ -18,16 +20,16 @@ const isPublicRoute = createRouteMatcher([
   "/sitemap.xml",
 ])
 
-export default clerkMiddleware((auth, req) => {
-  // Allow all public routes without authentication
-  if (!isPublicRoute(req)) {
-    auth().protect()
-  }
-})
+export function middleware(request: NextRequest) {
+  // Allow all requests to pass through
+  // Route protection is handled at the component level
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: [
     // Skip Next.js internals and static files
-    "/((?!_next/static|_next/image|favicon.ico|public).*)",
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
   ],
 }
