@@ -14,6 +14,8 @@ const isSearchEngineCrawler = (userAgent: string) => {
     /linkedinbot/i,
     /whatsapp/i,
     /slotovod/i,
+    /googleother/i,
+    /inspection_tool/i,
   ]
 
   return crawlerPatterns.some((pattern) => pattern.test(userAgent))
@@ -42,15 +44,12 @@ export default authMiddleware({
     const isCrawler = isSearchEngineCrawler(userAgent)
 
     if (isCrawler) {
+      // Allow all crawlers to pass through without any auth checks
       return NextResponse.next()
     }
 
     if (!auth.userId && !auth.isPublicRoute) {
       return redirectToSignIn({ returnBackUrl: req.url })
-    }
-
-    if (auth.userId && !auth.isPublicRoute) {
-      return NextResponse.next()
     }
 
     return NextResponse.next()
