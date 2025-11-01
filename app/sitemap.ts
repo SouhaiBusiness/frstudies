@@ -2,8 +2,10 @@ import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
+    ? `https://${process.env.VERCEL_URL.replace(/^https?:\/\//, "")}`
+    : "http://localhost:3000"
+
+  console.log("[v0] Sitemap baseUrl:", baseUrl)
 
   return [
     {
