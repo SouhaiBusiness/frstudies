@@ -1,73 +1,68 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL.replace(/^https?:\/\//, "")}`
-    : "http://localhost:3000"
-
-  console.log("[v0] Sitemap baseUrl:", baseUrl)
+  const baseUrl = "https://frstudies.vercel.app"
 
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 1,
+    },
+    {
+      url: `${baseUrl}/articles`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/quiz`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/exams`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/literature`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/linguistics`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/articles`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: "monthly",
       priority: 0.8,
     },
-
     {
       url: `${baseUrl}/privacy-policy`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/terms-of-use`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 0.5,
     },
-  ];
+  ]
 }

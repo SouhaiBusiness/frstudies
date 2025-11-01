@@ -1,28 +1,31 @@
-# Robots.txt for ETUDESFRANCAISE App
-# Generated for Google Search Console
-
-User-agent: *
+# Allow Google crawler
+User-agent: Googlebot
 Allow: /
+Allow: /articles
 Allow: /quiz
 Allow: /exams
-Allow: /linguistics
 Allow: /literature
-Allow: /contact
-Allow: /articles
+Allow: /linguistics
 Allow: /about
-Allow: /privacy-policy
-Allow: /sign-in
-Allow: /sign-up
-Allow: /terms-of-use
+Allow: /contact
+Crawl-delay: 0
 
-# Block admin pages
-Disallow: /admin/
+# Allow Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
 
-# Block API routes
-Disallow: /api/
+# All other bots
+User-agent: *
+Allow: /
+Allow: /articles
+Allow: /quiz
+Allow: /exams
+Allow: /literature
+Allow: /linguistics
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /admin
 
-# Block auth check page
-Disallow: /auth-check/
-
-# Sitemap location
+# Sitemap
 Sitemap: https://frstudies.vercel.app/sitemap.xml

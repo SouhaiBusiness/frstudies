@@ -1,48 +1,33 @@
-// middleware.ts - Updated Version
-import { authMiddleware, redirectToSignIn  } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 
-export default authMiddleware({
-  publicRoutes: [
-    "/",
-    "/about",
-    "/quiz",
-    "/linguistics",
-    "/literature",
-    "/exams",
-    "/commentaire-compose",
-    "/dissertation",
-    "/essai",
-    "/api/blogs(.*)",
-    "/articles(.*)",
-    "/sign-in(.*)",
-    "/sign-up(.*)",
-    "/sitemap.xml",
-    "/robots.txt",
-  ],
- // ignoredRoutes: [
- //   "/_next/static(.*)",
-  //  "/_next/image(.*)",
-   // "/favicon.ico",
-  //  "/api/webhooks/clerk"
-  //],
- afterAuth(auth, req) {
+// Define public routes that don't need authentication
+const isPublicRoute = createRouteMatcher([
+  "/articles",
+  "/quiz",
+  "/exams",
+  "/literature",
+  "/linguistics",
+  "/about",
+  "/contact",
+  "/privacy-policy",
+  "/terms-of-use",
+  "/sign-in",
+  "/sign-up",
+  "/",
+  "/robots.txt",
+  "/sitemap.xml",
+])
 
-    if (!auth.userId && !auth.isPublicRoute) {
-
-
-      return redirectToSignIn({ returnBackUrl: req.url })
-    }
-      if (auth.userId && !auth.isPublicRoute) {
-
-      return NextResponse.next()
-      }
-      return NextResponse.next()
-  },
-
-
-});
+export default clerkMiddleware((auth, req) => {
+  // Allow all public routes without authentication
+  if (!isPublicRoute(req)) {
+    auth().protect()
+  }
+})
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-};
+  matcher: [
+    // Skip Next.js internals and static files
+    "/((?!_next/static|_next/image|favicon.ico|public).*)",
+  ],
+}
