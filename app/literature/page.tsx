@@ -249,6 +249,7 @@ export default function LiteraturePage() {
     async function fetchModules() {
       try {
         setIsLoading(true)
+        setError(null)
 
         // First try to fetch from the API
         const response = await fetch(
@@ -301,8 +302,6 @@ export default function LiteraturePage() {
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Explorez nos ressources en littérature française, organisées par semestre et par module
         </p>
-        <p className="text-red-400">Vous devez vous inscrire ou vous connecter en cliquant sur <Link href="/sign-in" className="underline">signIn</Link>, 
-        pour avoir acces aux cours.</p>
       </div>
 
       <SemesterFilter activeSemester={activeSemester} onSemesterChange={setActiveSemester} />
