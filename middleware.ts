@@ -1,42 +1,17 @@
-// middleware.ts - Make EVERYTHING public except dashboard
-import { authMiddleware } from "@clerk/nextjs";
+// middleware.ts - REMOVE CLERK COMPLETELY
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default authMiddleware({
-  // Make ALL routes public - Googlebot can access everything
-  publicRoutes: [
-    "/",
-    "/about",
-    "/quiz(.*)",
-    "/linguistics(.*)",
-    "/literature(.*)",
-    "/exams(.*)",
-    "/commentaire-compose(.*)",
-    "/dissertation(.*)",
-    "/essai(.*)",
-    "/api/(.*)",
-    "/articles(.*)",
-    "/sign-in(.*)",
-    "/sign-up(.*)",
-    "/sitemap.xml",
-    "/robots.txt",
-    "/(.*)"  // This makes EVERYTHING public by default
-  ],
-  
-  // Only protect your admin dashboard
-  ignoredRoutes: [
-    "/_next/static(.*)",
-    "/_next/image(.*)",
-    "/favicon.ico",
-    "/api/webhooks/clerk"
-  ],
-  
-  afterAuth(auth, req) {
-    // Just let everything through
-    return NextResponse.next();
-  },
-});
+export function middleware(req: NextRequest) {
+  // Let everything through - no authentication checks
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: [
+    /*
+     * Match all request paths except static files
+     */
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };
