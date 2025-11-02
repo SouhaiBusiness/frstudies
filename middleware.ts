@@ -1,37 +1,38 @@
-// middleware.ts - Making authentication optional
+// middleware.ts - Make EVERYTHING public except dashboard
 import { authMiddleware } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 export default authMiddleware({
-  // Make ALL routes public - users can access everything without signing in
+  // Make ALL routes public - Googlebot can access everything
   publicRoutes: [
     "/",
     "/about",
-    "/quiz",
-    "/linguistics(.*)",  // Allow all linguistics pages
-    "/literature(.*)",   // Allow all literature pages
+    "/quiz(.*)",
+    "/linguistics(.*)",
+    "/literature(.*)",
     "/exams(.*)",
-    "/commentaire-compose",
-    "/dissertation",
-    "/essai",
-    "/api/blogs(.*)",
-    "/api/courses(.*)",  // Make courses API public too
+    "/commentaire-compose(.*)",
+    "/dissertation(.*)",
+    "/essai(.*)",
+    "/api/(.*)",
     "/articles(.*)",
     "/sign-in(.*)",
     "/sign-up(.*)",
     "/sitemap.xml",
     "/robots.txt",
+    "/(.*)"  // This makes EVERYTHING public by default
   ],
   
-  // Only protect the admin dashboard
+  // Only protect your admin dashboard
   ignoredRoutes: [
     "/_next/static(.*)",
     "/_next/image(.*)",
     "/favicon.ico",
+    "/api/webhooks/clerk"
   ],
   
   afterAuth(auth, req) {
-    // Allow all requests to proceed
+    // Just let everything through
     return NextResponse.next();
   },
 });
