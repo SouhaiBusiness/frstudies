@@ -2,8 +2,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@clerk/nextjs"
 import DashboardSidebar from "@/components/dashboard-sidebar"
 import { NotificationProvider } from "@/components/notification"
 import AuthPopup from "@/components/auth-popup"
@@ -15,28 +13,21 @@ export default function DashboardLayout({
 }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [showAuthPopup, setShowAuthPopup] = useState(false)
-  const { isLoaded, userId } = useAuth()
-  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    if (!isLoaded) return
-
-    if (!userId) {
-      // Remove this line since you don't have a /signin page
-      // router.push("/signin") 
-      return
-    }
-
-    // Check custom authentication
+    // Check custom authentication (your secure popup)
     const authStatus = sessionStorage.getItem("isAuthenticated") === "true" || 
       process.env.NEXT_PUBLIC_BYPASS_AUTH === "true"
     
     if (!authStatus) {
       setShowAuthPopup(true)
+      setIsLoading(false)
     } else {
       setIsAuthenticated(true)
+      setIsLoading(false)
     }
-  }, [isLoaded, userId, router])
+  }, [])
 
   const handleAuthSuccess = () => {
     sessionStorage.setItem("isAuthenticated", "true")
@@ -44,10 +35,10 @@ export default function DashboardLayout({
     setShowAuthPopup(false)
   }
 
-  if (!isLoaded || !userId) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p>Checking authentication...</p>
+        <p>Loading dashboard...</p>
       </div>
     )
   }
@@ -56,7 +47,6 @@ export default function DashboardLayout({
     return (
       <div className="flex items-center justify-center h-screen">
         {showAuthPopup && <AuthPopup onSuccess={handleAuthSuccess} />}
-        <p>Loading dashboard...</p>
       </div>
     )
   }
