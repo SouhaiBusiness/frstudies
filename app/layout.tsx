@@ -65,6 +65,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             name="google-site-verification"
             content="4opBcAx8n5wHOMKSA5OXCPnhfzrkehvplBlaic-wSMU"
           />
+          {/* Google adSense Meta Tag */}
+          <meta name="google-adsense-account" content="ca-pub-6371317116004422"></meta>
 
           {/* Favicon & PWA Icons */}
           <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -121,6 +123,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             data-cmp-cdn="cdn.consentmanager.net"
             data-cmp-codesrc="16"
           ></script>
+
+          
         </head>
 
         <body className={`${inter.className} min-h-screen flex flex-col`}>
