@@ -68,6 +68,24 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* Google adSense Meta Tag */}
           <meta name="google-adsense-account" content="ca-pub-6371317116004422"></meta>
 
+          {/* Google Analytics */}
+          {gaMeasurementId && (
+            <>
+              <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
+              />
+              <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${gaMeasurementId}');
+                `}
+              </Script>
+            </>
+          )}
+
           {/* Favicon & PWA Icons */}
           <link rel="icon" href="/favicon.ico" sizes="any" />
           <link
@@ -96,23 +114,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <link rel="manifest" href="/site.webmanifest" />
           <meta name="theme-color" content="#ffffff" />
 
-          {/* Google Analytics */}
-          {gaMeasurementId && (
-            <>
-              <Script
-                strategy="afterInteractive"
-                src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`}
-              />
-              <Script id="google-analytics" strategy="afterInteractive">
-                {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${gaMeasurementId}');
-                `}
-              </Script>
-            </>
-          )}
+          
 
           {/* Consent Manager */}
           <script
