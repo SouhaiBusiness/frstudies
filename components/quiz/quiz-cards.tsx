@@ -3,7 +3,7 @@ import { BookOpen, MessageSquare, Bookmark } from "lucide-react"
 
 const quizzes = [
   {
-    id: "vocabulary",
+    id: "Histoire des idées et de l'art",
     title: "Quiz de l'histoire des idées et de l'art",
     description: "Testez votre culture générale de l'histoire des idées et de l'art",
     icon: BookOpen,
@@ -12,7 +12,7 @@ const quizzes = [
     level: "Débutant à Intermédiaire",
   },
   {
-    id: "grammar",
+    id: "Morphosyntaxe",
     title: "Quiz de morphosyntaxe française",
     description: "Mettez-vous au défi avec des questions sur les règles et structures grammaticales du français.",
     icon: MessageSquare,
@@ -21,8 +21,8 @@ const quizzes = [
     level: "Intermédiaire",
   },
   {
-    id: "literature",
-    title: "Quiz de littérature française",
+    id: "Lexicologie",
+    title: "Quiz de Lexicologie",
     description: "Testez vos connaissances sur les auteurs célèbres et les œuvres littéraires françaises.",
     icon: Bookmark,
     color: "bg-amber-600",
