@@ -26,6 +26,8 @@ Allow: /linguistics
 Disallow: /sign-in
 Disallow: /sign-up
 Disallow: /admin
+Disallow: /d-frs654
+
 
 # Sitemap
 Sitemap: https://frstudies.vercel.app/sitemap.xml
