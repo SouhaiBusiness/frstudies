@@ -1,36 +1,17 @@
-// middleware.ts
-import { authMiddleware } from "@clerk/nextjs";
+// middleware.ts - REMOVE CLERK COMPLETELY
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default authMiddleware({
-  // Routes that don't require authentication (public routes)
-  publicRoutes: [
-    "/",
-    "/sign-in(.*)",
-    "/sign-up(.*)",
-    "/articles(.*)",
-    "/quiz(.*)",
-    "/exams(.*)",
-    "/literature(.*)",
-    "/linguistics(.*)",
-    "/commentaire-compose(.*)",
-    "/dissertation(.*)",
-    "/essai(.*)",
-    "/didactique(.*)",
-    "/psychologie(.*)",
-    "/sociologie(.*)",
-    "/philosophie(.*)",
-    "/about",
-    "/contact",
-    "/privacy-policy",
-    "/terms-of-use",
-    "/api/blogs(.*)",
-    "/api/webhooks(.*)",
-    "/debug-clerk",
-  ],
-  // Routes that require authentication
-  // Everything else (like /d-frs654) will require login
-});
+export function middleware(req: NextRequest) {
+  // Let everything through - no authentication checks
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: ["/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)", "/(api|trpc)(.*)"],
+  matcher: [
+    /*
+     * Match all request paths except static files
+     */
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 };
