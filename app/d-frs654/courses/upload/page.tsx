@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { Loader2, Upload, X, AlertTriangle, Info } from 'lucide-react';
 import { useNotification, Notification } from '@/components/notification';
 
+export const dynamic = 'force-dynamic'
+
 // Define the available filières
 const filieres = [
   { value: 'literature', label: 'Littérature' },
