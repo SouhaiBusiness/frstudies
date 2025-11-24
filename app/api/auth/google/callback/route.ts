@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import clientPromise from "@/lib/mongodb";
 
+export const dynamic = 'force-dynamic'
 export async function GET(req: NextRequest) {
   try {
     const code = new URL(req.url).searchParams.get("code");
