@@ -1,29 +1,32 @@
-import { NextResponse } from "next/server"
+import { NextResponse, NextRequest } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
-import { auth } from "@clerk/nextjs/server"
 
 // Add interface for Module document
 interface ModuleFile {
   id: string
-  // Add other file properties you use
   uploadedById?: string
 }
 
 interface Module {
   _id: ObjectId
   files?: ModuleFile[]
-  // Add other module properties you use
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { moduleId: string; fileId: string } }
 ) {
   try {
-    const { userId } = auth()
-    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
+    
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
 
+    const userId = request.headers.get("x-user-id")
     const { moduleId, fileId } = params
 
     const client = await clientPromise
@@ -45,7 +48,7 @@ export async function DELETE(
     }
 
     // Check permissions (admin or file uploader)
-    const user = await db.collection("users").findOne({ clerkId: userId })
+    const user = await db.collection("users").findOne({ email: userId })
     if (user?.role !== "admin" && fileToDelete.uploadedById !== userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
     }
@@ -55,7 +58,7 @@ export async function DELETE(
       { _id: new ObjectId(moduleId) },
       {
         $pull: { 
-          files: { id: fileId } as ModuleFile // Type assertion here
+          files: { id: fileId } as ModuleFile
         },
         $set: { updatedAt: new Date() },
       }

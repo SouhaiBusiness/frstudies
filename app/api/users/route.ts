@@ -1,21 +1,24 @@
 import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
-import { auth } from "@clerk/nextjs/server"
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
+
+    const userId = request.headers.get("x-user-id")
 
     const client = await clientPromise
     const db = client.db()
 
     // Check if the requesting user is an admin
     const adminUser = await db.collection("users").findOne({
-      clerkId: userId,
+      email: userId,
       role: "admin",
     })
 
@@ -34,16 +37,19 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const userId = request.headers.get("x-user-id")
     const body = await request.json()
 
     // Validate required fields
-    if (!body.clerkId || !body.email || !body.name || !body.role) {
+    if (!body.email || !body.name || !body.role) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
@@ -52,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     // Check if the requesting user is an admin
     const adminUser = await db.collection("users").findOne({
-      clerkId: userId,
+      email: userId,
       role: "admin",
     })
 
@@ -62,7 +68,7 @@ export async function POST(request: NextRequest) {
 
     // Check if user already exists
     const existingUser = await db.collection("users").findOne({
-      clerkId: body.clerkId,
+      email: body.email,
     })
 
     if (existingUser) {

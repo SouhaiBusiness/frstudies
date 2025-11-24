@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
 import { del } from "@vercel/blob"
-import { auth } from "@clerk/nextjs/server"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -28,13 +27,16 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
     const id = params.id
+    const userId = request.headers.get("x-user-id")
 
     const client = await clientPromise
     const db = client.db()
@@ -49,7 +51,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     }
 
     // Check if user is admin or the uploader
-    const user = await db.collection("users").findOne({ clerkId: userId })
+    const user = await db.collection("users").findOne({ email: userId })
 
     if (user?.role !== "admin" && course.uploadedById !== userId) {
       return NextResponse.json({ error: "Unauthorized to delete this course" }, { status: 403 })

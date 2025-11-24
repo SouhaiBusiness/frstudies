@@ -1,7 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import type { Blog } from "@/lib/models"
-import { auth } from "@clerk/nextjs/server"
 import type { InsertOneResult } from "mongodb"
 
 export async function GET(request: NextRequest) {
@@ -63,9 +62,13 @@ export async function POST(request: NextRequest) {
   try {
     console.log("Blog creation API called")
 
-    // Get user ID from Clerk
-    const { userId } = auth()
-    console.log("User ID from auth:", userId)
+    // Get auth token from request header
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
+
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 })
+    }
 
     // Parse request body
     const body = await request.json()
@@ -106,7 +109,7 @@ export async function POST(request: NextRequest) {
     // Set default values
     const newBlog: Blog = {
       ...body,
-      authorId: userId || "anonymous",
+      authorId: body.authorId || "anonymous",
       createdAt: new Date(),
       updatedAt: new Date(),
     }

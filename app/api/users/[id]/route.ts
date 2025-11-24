@@ -1,24 +1,26 @@
 import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 import { ObjectId } from "mongodb"
-import { auth } from "@clerk/nextjs/server"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const userId = request.headers.get("x-user-id")
     const id = params.id
 
     const client = await clientPromise
     const db = client.db()
 
-    // Check if the requesting user is an admin or the user being requested
+    // Check if the requesting user exists
     const requestingUser = await db.collection("users").findOne({
-      clerkId: userId,
+      email: userId,
     })
 
     if (!requestingUser) {
@@ -27,12 +29,12 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     let user
 
-    // If the ID is a Clerk ID
-    if (id.startsWith("user_")) {
-      user = await db.collection("users").findOne({ clerkId: id })
-    } else {
-      // If the ID is a MongoDB ObjectId
+    // Try as MongoDB ObjectId first
+    try {
       user = await db.collection("users").findOne({ _id: new ObjectId(id) })
+    } catch {
+      // If not a valid ObjectId, search by email
+      user = await db.collection("users").findOne({ email: id })
     }
 
     if (!user) {
@@ -40,7 +42,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     }
 
     // Only allow admins or the user themselves to access user data
-    if (requestingUser.role !== "admin" && requestingUser.clerkId !== user.clerkId) {
+    if (requestingUser.role !== "admin" && requestingUser.email !== user.email) {
       return NextResponse.json({ error: "Unauthorized to access this user data" }, { status: 403 })
     }
 
@@ -53,21 +55,24 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const userId = request.headers.get("x-user-id")
     const id = params.id
     const body = await request.json()
 
     const client = await clientPromise
     const db = client.db()
 
-    // Check if the requesting user is an admin
+    // Check if the requesting user is an admin or the user being updated
     const requestingUser = await db.collection("users").findOne({
-      clerkId: userId,
+      email: userId,
     })
 
     if (!requestingUser) {
@@ -76,12 +81,12 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     let userToUpdate
 
-    // If the ID is a Clerk ID
-    if (id.startsWith("user_")) {
-      userToUpdate = await db.collection("users").findOne({ clerkId: id })
-    } else {
-      // If the ID is a MongoDB ObjectId
+    // Try as MongoDB ObjectId first
+    try {
       userToUpdate = await db.collection("users").findOne({ _id: new ObjectId(id) })
+    } catch {
+      // If not a valid ObjectId, search by email
+      userToUpdate = await db.collection("users").findOne({ email: id })
     }
 
     if (!userToUpdate) {
@@ -89,11 +94,11 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 
     // Only allow admins or the user themselves to update user data
-    // Only admins can change roles
-    if (requestingUser.role !== "admin" && requestingUser.clerkId !== userToUpdate.clerkId) {
+    if (requestingUser.role !== "admin" && requestingUser.email !== userToUpdate.email) {
       return NextResponse.json({ error: "Unauthorized to update this user" }, { status: 403 })
     }
 
+    // Only admins can change roles
     if (requestingUser.role !== "admin" && body.role) {
       return NextResponse.json({ error: "Unauthorized to change user role" }, { status: 403 })
     }
@@ -106,12 +111,18 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
     let result
 
-    // If the ID is a Clerk ID
-    if (id.startsWith("user_")) {
-      result = await db.collection("users").updateOne({ clerkId: id }, { $set: updateData })
-    } else {
-      // If the ID is a MongoDB ObjectId
-      result = await db.collection("users").updateOne({ _id: new ObjectId(id) }, { $set: updateData })
+    // Try as MongoDB ObjectId first
+    try {
+      result = await db.collection("users").updateOne(
+        { _id: new ObjectId(id) },
+        { $set: updateData }
+      )
+    } catch {
+      // If not a valid ObjectId, update by email
+      result = await db.collection("users").updateOne(
+        { email: id },
+        { $set: updateData }
+      )
     }
 
     if (result.matchedCount === 0) {
@@ -129,12 +140,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const { userId } = auth()
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
 
-    if (!userId) {
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
+    const userId = request.headers.get("x-user-id")
     const id = params.id
 
     const client = await clientPromise
@@ -142,7 +156,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     // Check if the requesting user is an admin
     const adminUser = await db.collection("users").findOne({
-      clerkId: userId,
+      email: userId,
       role: "admin",
     })
 
@@ -152,12 +166,16 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
     let result
 
-    // If the ID is a Clerk ID
-    if (id.startsWith("user_")) {
-      result = await db.collection("users").deleteOne({ clerkId: id })
-    } else {
-      // If the ID is a MongoDB ObjectId
-      result = await db.collection("users").deleteOne({ _id: new ObjectId(id) })
+    // Try as MongoDB ObjectId first
+    try {
+      result = await db.collection("users").deleteOne({
+        _id: new ObjectId(id),
+      })
+    } catch {
+      // If not a valid ObjectId, delete by email
+      result = await db.collection("users").deleteOne({
+        email: id,
+      })
     }
 
     if (result.deletedCount === 0) {

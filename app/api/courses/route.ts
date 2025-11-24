@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
-import { auth } from "@clerk/nextjs/server"
 import { ObjectId } from "mongodb"
 import type { FileItem, Module } from "@/lib/models"
 import { put, del } from '@vercel/blob';
@@ -41,9 +40,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Authentication
-    const { userId } = auth();
-    if (!userId) {
+    // Check for auth token
+    const authHeader = request.headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
+    
+    if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -53,9 +54,10 @@ export async function POST(request: NextRequest) {
     const filiere = formData.get("filiere") as Filiere | null;
     const semesterStr = formData.get("semester") as string | null;
     const moduleId = formData.get("module") as string | null;
+    const userId = formData.get("userId") as string | null;
 
     // Validate inputs
-    if (!file || !filiere || !semesterStr || !moduleId) {
+    if (!file || !filiere || !semesterStr || !moduleId || !userId) {
       return NextResponse.json(
         { error: "Missing required fields" }, 
         { status: 400 }
@@ -76,7 +78,7 @@ export async function POST(request: NextRequest) {
     const fileDoc: FileItem = {
       id: new ObjectId().toString(),
       name: file.name,
-      fileUrl: blob.url, // Using Blob URL
+      fileUrl: blob.url,
       fileSize: file.size,
       uploadedBy: "User",
       uploadedById: userId,
@@ -149,16 +151,18 @@ export async function POST(request: NextRequest) {
   }
 }
 
-
-
-
 export async function DELETE(
   request: Request,
   { params }: { params: { moduleId: string; fileId: string } }
 ) {
   try {
-    const { userId } = auth();
-    if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // Check for auth token
+    const authHeader = (request as NextRequest).headers.get("authorization")
+    const token = authHeader?.replace("Bearer ", "")
+    
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
 
     const { moduleId, fileId } = params;
 
@@ -178,12 +182,6 @@ export async function DELETE(
     const fileToDelete = module.files?.find((file) => file.id === fileId);
     if (!fileToDelete) {
       return NextResponse.json({ error: "File not found" }, { status: 404 });
-    }
-
-    // Check permissions
-    const user = await db.collection("users").findOne({ clerkId: userId });
-    if (user?.role !== "admin" && fileToDelete.uploadedById !== userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
     // Delete from Vercel Blob

@@ -2,14 +2,14 @@ import type { ObjectId } from "mongodb"
 
 export interface User {
   _id?: ObjectId
-  clerkId: string
-  email: string
   name: string
+  email: string
+  password?: string // For local auth
+  googleId?: string // For Google OAuth
   role: "admin" | "author" | "user"
   createdAt: Date
   updatedAt: Date
 }
-
 export interface Blog {
   _id?: ObjectId
   title: string

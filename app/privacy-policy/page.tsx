@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             Nous pouvons collecter :
           </p>
           <ul className="list-disc pl-6 space-y-2">
-            <li>Informations de compte (nom, email via Clerk)</li>
+            <li>Informations de compte (nom, email et mot de passe)</li>
             <li>Données d'usage (pages visitées, durée de visite)</li>
             <li>Cookies pour le fonctionnement du site</li>
           </ul>
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
           <ul className="list-disc pl-6 space-y-2">
             <li>Fournir et améliorer nos services</li>
             <li>Personnaliser votre expérience</li>
-            <li>Communiquer avec vous (newsletter, notifications)</li>
+            <li>Vous communiquer des (newsletters, événements, notifications)</li>
             <li>Analyser l'usage de la plateforme</li>
           </ul>
         </section>
@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             <li>Autorités légales si requis par la loi</li>
           </ul>
           <p className="mt-4">
-            Nous utilisons Clerk pour l'authentification.
+            Nous utilisons notre propre système sécurisé d'authentification.
           </p>
         </section>
 
@@ -77,7 +77,7 @@ export default function PrivacyPage() {
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>Fonctionnement du site (session, authentification)</li>
-            <li>Analyse d'audience (Google Analytics)</li>
+            <li>Analyse d'audience </li>
           </ul>
           <p className="mt-4">
             Vous pouvez configurer votre navigateur pour refuser les cookies.
