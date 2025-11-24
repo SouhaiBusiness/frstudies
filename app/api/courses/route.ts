@@ -5,8 +5,7 @@ import type { FileItem, Module } from "@/lib/models"
 import { put, del } from '@vercel/blob';
 
 
-export const dynamic = 'force-dynamic'
-
+ 
 type Filiere = Module["filiere"]
 
 export async function GET(request: NextRequest) {

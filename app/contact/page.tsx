@@ -5,8 +5,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 
- export const dynamic = 'force-dynamic'
-
+ 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',

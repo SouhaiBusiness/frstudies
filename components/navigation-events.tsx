@@ -3,8 +3,7 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-export const dynamic = 'force-dynamic'
-declare global {
+ declare global {
   interface Window {
     gtag: (...args: any[]) => void;
   }

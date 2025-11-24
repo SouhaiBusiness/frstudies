@@ -4,8 +4,7 @@
 import { useState, useEffect } from "react"
 import { Loader2, Trash2, FileIcon, AlertCircle } from "lucide-react"
 
-export const dynamic = 'force-dynamic'
-interface FileItem {
+ interface FileItem {
   id: string
   name: string
   fileUrl: string

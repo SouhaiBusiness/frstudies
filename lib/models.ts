@@ -5,7 +5,6 @@ export interface User {
   name: string
   email: string
   password?: string // For local auth
-  googleId?: string // For Google OAuth
   role: "admin" | "author" | "user"
   createdAt: Date
   updatedAt: Date
