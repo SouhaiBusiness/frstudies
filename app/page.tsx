@@ -11,6 +11,8 @@ import CategoryButtons from "@/components/category-buttons"
 import MainSearchBar from "@/components/main-search-bar"
 import NewsletterSignup from "@/components/newsletter-signup"
 
+
+
 export const metadata: Metadata = {
   title: "ETUDESFRANÇAISES - Ressources pour les étudiants de français",
   description: "Plateforme complète pour les étudiants en français avec cours, quiz et examens",
@@ -41,6 +43,8 @@ export const metadata: Metadata = {
   },
 }
 
+
+export const dynamic = 'force-dynamic' 
 async function getRecentArticles() {
   try {
     const client = await clientPromise
