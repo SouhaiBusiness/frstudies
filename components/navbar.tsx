@@ -1,87 +1,84 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { ChevronDown, LogOut } from "lucide-react";
-import AuthModal from "./AuthModal";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { ChevronDown, LogOut } from "lucide-react"
+import AuthModal from "./AuthModal"
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
+  id: string
+  name: string
+  email: string
 }
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
-  const [isMobileCoursesOpen, setIsMobileCoursesOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false)
+  const [isCoursesOpen, setIsCoursesOpen] = useState(false)
+  const [isMobileCoursesOpen, setIsMobileCoursesOpen] = useState(false)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is logged in
-    const token = localStorage.getItem("authToken");
-    const userData = localStorage.getItem("user");
+    const token = localStorage.getItem("authToken")
+    const userData = localStorage.getItem("user")
 
     if (token && userData) {
       try {
-        setUser(JSON.parse(userData));
+        setUser(JSON.parse(userData))
       } catch (error) {
-        console.error("Error parsing user data:", error);
-        localStorage.removeItem("authToken");
-        localStorage.removeItem("user");
+        console.error("Error parsing user data:", error)
+        localStorage.removeItem("authToken")
+        localStorage.removeItem("user")
       }
     }
-    setIsLoading(false);
-  }, []);
+    setIsLoading(false)
+  }, [])
 
-  // Listen for auth changes
   useEffect(() => {
     const handleAuthChange = () => {
-      const userData = localStorage.getItem("user");
+      const userData = localStorage.getItem("user")
       if (userData) {
         try {
-          setUser(JSON.parse(userData));
+          setUser(JSON.parse(userData))
         } catch (error) {
-          console.error("Error parsing user data:", error);
+          console.error("Error parsing user data:", error)
         }
       }
-    };
+    }
 
-    window.addEventListener("authChanged", handleAuthChange);
-    return () => window.removeEventListener("authChanged", handleAuthChange);
-  }, []);
+    window.addEventListener("authChanged", handleAuthChange)
+    return () => window.removeEventListener("authChanged", handleAuthChange)
+  }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("user");
-    setUser(null);
-    setIsMenuOpen(false);
-    window.location.href = "/";
-  };
+    localStorage.removeItem("authToken")
+    localStorage.removeItem("user")
+    setUser(null)
+    setIsMenuOpen(false)
+    window.location.href = "/"
+  }
 
   const openAuthModal = () => {
-    setIsAuthModalOpen(true);
-    setIsOpen(false);
-  };
+    setIsAuthModalOpen(true)
+    setIsOpen(false)
+  }
 
   const closeAuthModal = () => {
-    setIsAuthModalOpen(false);
-  };
+    setIsAuthModalOpen(false)
+  }
 
   const handleAuthSuccess = () => {
-    // Refresh user data from localStorage
-    const userData = localStorage.getItem("user");
+    const userData = localStorage.getItem("user")
     if (userData) {
       try {
-        setUser(JSON.parse(userData));
+        setUser(JSON.parse(userData))
       } catch (error) {
-        console.error("Error parsing user data:", error);
+        console.error("Error parsing user data:", error)
       }
     }
-  };
+  }
 
   return (
     <>
@@ -203,14 +200,6 @@ export default function Navbar() {
                         <p className="text-xs text-gray-500 truncate">{user.email}</p>
                       </div>
 
-                      <Link
-                        href="/d-frs654"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        Dashboard
-                      </Link>
-
                       <button
                         onClick={handleLogout}
                         className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
@@ -247,12 +236,7 @@ export default function Navbar() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 ) : (
                   <svg
@@ -262,12 +246,7 @@ export default function Navbar() {
                     viewBox="0 0 24 24"
                     stroke="currentColor"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 )}
               </button>
@@ -333,11 +312,7 @@ export default function Navbar() {
       </nav>
 
       {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={closeAuthModal}
-        onSuccess={handleAuthSuccess}
-      />
+      <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} onSuccess={handleAuthSuccess} />
     </>
-  );
+  )
 }
