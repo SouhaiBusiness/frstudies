@@ -18,13 +18,12 @@ export async function DELETE(
   { params }: { params: { moduleId: string; fileId: string } }
 ) {
   try {
-    // Check for auth token
-    const authHeader = request.headers.get("authorization")
-    const token = authHeader?.replace("Bearer ", "")
-    
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    // REMOVED AUTH CHECK - No token verification needed
+    // const authHeader = request.headers.get("authorization")
+    // const token = authHeader?.replace("Bearer ", "")
+    // if (!token) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    // }
 
     const userId = request.headers.get("x-user-id")
     const { moduleId, fileId } = params
@@ -47,11 +46,12 @@ export async function DELETE(
       return NextResponse.json({ error: "File not found" }, { status: 404 })
     }
 
+    // REMOVED PERMISSION CHECK - No user verification needed
     // Check permissions (admin or file uploader)
-    const user = await db.collection("users").findOne({ email: userId })
-    if (user?.role !== "admin" && fileToDelete.uploadedById !== userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
-    }
+    // const user = await db.collection("users").findOne({ email: userId })
+    // if (user?.role !== "admin" && fileToDelete.uploadedById !== userId) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
+    // }
 
     // Remove the file from the module with proper typing
     await db.collection<Module>("modules").updateOne(

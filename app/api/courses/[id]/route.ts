@@ -10,7 +10,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
     const client = await clientPromise
     const db = client.db()
 
-    const course = await db.collection("courses").findOne({
+    // Query the "modules" collection instead of "courses"
+    const course = await db.collection("modules").findOne({
       _id: new ObjectId(id),
     })
 
@@ -27,34 +28,19 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    // Check for auth token
-    const authHeader = request.headers.get("authorization")
-    const token = authHeader?.replace("Bearer ", "")
-
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const id = params.id
-    const userId = request.headers.get("x-user-id")
 
     const client = await clientPromise
     const db = client.db()
 
+    // Query the "modules" collection instead of "courses"
     // Get the course to delete the file
-    const course = await db.collection("courses").findOne({
+    const course = await db.collection("modules").findOne({
       _id: new ObjectId(id),
     })
 
     if (!course) {
       return NextResponse.json({ error: "Course not found" }, { status: 404 })
-    }
-
-    // Check if user is admin or the uploader
-    const user = await db.collection("users").findOne({ email: userId })
-
-    if (user?.role !== "admin" && course.uploadedById !== userId) {
-      return NextResponse.json({ error: "Unauthorized to delete this course" }, { status: 403 })
     }
 
     // Delete the file from Vercel Blob
@@ -67,8 +53,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       }
     }
 
-    // Delete the course document
-    const result = await db.collection("courses").deleteOne({
+    // Delete from "modules" collection instead of "courses"
+    const result = await db.collection("modules").deleteOne({
       _id: new ObjectId(id),
     })
 

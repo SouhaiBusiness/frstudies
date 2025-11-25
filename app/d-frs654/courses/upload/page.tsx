@@ -429,6 +429,8 @@ export default function UploadCoursePage() {
       data.append('semester', formData.semester);
       data.append('module', formData.module);
       data.append('file', selectedFile);
+      // ADDED: Include userId field required by the API
+      data.append('userId', 'admin');
 
       console.log('Submitting course data:', {
         filiere: formData.filiere,
@@ -436,6 +438,7 @@ export default function UploadCoursePage() {
         module: formData.module,
         fileName: selectedFile.name,
         fileSize: selectedFile.size,
+        userId: 'admin'
       });
 
       const response = await fetch('/api/courses', {

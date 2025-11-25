@@ -62,13 +62,12 @@ export async function POST(request: NextRequest) {
   try {
     console.log("Blog creation API called")
 
-    // Get auth token from request header
-    const authHeader = request.headers.get("authorization")
-    const token = authHeader?.replace("Bearer ", "")
-
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 })
-    }
+    // REMOVED AUTH CHECK - No token verification needed
+    // const authHeader = request.headers.get("authorization")
+    // const token = authHeader?.replace("Bearer ", "")
+    // if (!token) {
+    //   return NextResponse.json({ error: "Unauthorized: No token provided" }, { status: 401 })
+    // }
 
     // Parse request body
     const body = await request.json()

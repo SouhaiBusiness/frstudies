@@ -4,8 +4,6 @@ import { ObjectId } from "mongodb"
 import type { FileItem, Module } from "@/lib/models"
 import { put, del } from '@vercel/blob';
 
-
- 
 type Filiere = Module["filiere"]
 
 export async function GET(request: NextRequest) {
@@ -42,13 +40,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Check for auth token
-    const authHeader = request.headers.get("authorization")
-    const token = authHeader?.replace("Bearer ", "")
-    
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    console.log("Course upload API called");
 
     // Get form data
     const formData = await request.formData();
@@ -58,19 +50,58 @@ export async function POST(request: NextRequest) {
     const moduleId = formData.get("module") as string | null;
     const userId = formData.get("userId") as string | null;
 
+    console.log("Received form data:", {
+      filiere,
+      semesterStr,
+      moduleId,
+      userId,
+      fileName: file?.name,
+      fileSize: file?.size,
+      fileType: file?.type
+    });
+
     // Validate inputs
     if (!file || !filiere || !semesterStr || !moduleId || !userId) {
+      console.log("Validation failed - missing fields:", {
+        hasFile: !!file,
+        hasFiliere: !!filiere,
+        hasSemester: !!semesterStr,
+        hasModule: !!moduleId,
+        hasUserId: !!userId
+      });
+      
       return NextResponse.json(
-        { error: "Missing required fields" }, 
+        { 
+          error: "Missing required fields",
+          details: {
+            file: !file ? "File is required" : undefined,
+            filiere: !filiere ? "Filiere is required" : undefined,
+            semester: !semesterStr ? "Semester is required" : undefined,
+            module: !moduleId ? "Module is required" : undefined,
+            userId: !userId ? "UserId is required" : undefined
+          }
+        }, 
         { status: 400 }
       );
     }
+
+    // Validate file type
+    if (file.type !== 'application/pdf') {
+      return NextResponse.json(
+        { error: "Only PDF files are allowed" },
+        { status: 400 }
+      );
+    }
+
+    console.log("Uploading file to Vercel Blob...");
 
     // Upload to Vercel Blob
     const blob = await put(file.name, file, {
       access: 'public',
       contentType: file.type
     });
+
+    console.log("File uploaded to blob:", blob.url);
 
     const client = await clientPromise;
     const db = client.db();
@@ -87,6 +118,8 @@ export async function POST(request: NextRequest) {
       uploadedAt: new Date(),
     };
 
+    console.log("Checking if module exists...");
+
     // Check if module exists
     const existingModule = await modulesCollection.findOne({
       filiere,
@@ -95,6 +128,8 @@ export async function POST(request: NextRequest) {
     });
 
     if (existingModule) {
+      console.log("Module exists, updating...");
+      
       // Update existing module
       await modulesCollection.updateOne(
         { _id: existingModule._id },
@@ -104,16 +139,20 @@ export async function POST(request: NextRequest) {
         }
       );
 
+      console.log("Module updated successfully");
+
       return NextResponse.json(
         {
           message: "File added to existing module",
-          moduleId: existingModule._id,
+          moduleId: existingModule._id.toString(),
           fileId: fileDoc.id,
           fileUrl: blob.url,
         },
         { status: 200 }
       );
     } else {
+      console.log("Creating new module...");
+      
       // Create new module
       const moduleTitle = moduleId
         .split("-")
@@ -130,12 +169,16 @@ export async function POST(request: NextRequest) {
         updatedAt: new Date(),
       };
 
+      console.log("Inserting new module:", newModule);
+
       const result = await modulesCollection.insertOne(newModule);
+
+      console.log("New module created with ID:", result.insertedId);
 
       return NextResponse.json(
         {
           message: "New module created with file",
-          moduleId: result.insertedId,
+          moduleId: result.insertedId.toString(),
           fileUrl: blob.url,
         },
         { status: 201 }
@@ -143,10 +186,13 @@ export async function POST(request: NextRequest) {
     }
   } catch (error) {
     console.error("Error uploading course:", error);
+    
+    // Ensure we always return valid JSON
     return NextResponse.json(
       {
         error: "Failed to upload course",
         details: error instanceof Error ? error.message : String(error),
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined,
       },
       { status: 500 }
     );
@@ -158,14 +204,6 @@ export async function DELETE(
   { params }: { params: { moduleId: string; fileId: string } }
 ) {
   try {
-    // Check for auth token
-    const authHeader = (request as NextRequest).headers.get("authorization")
-    const token = authHeader?.replace("Bearer ", "")
-    
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
     const { moduleId, fileId } = params;
 
     const client = await clientPromise;
