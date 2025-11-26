@@ -95,7 +95,7 @@ export default function ContactPage() {
                 <Phone className='h-6 w-6 text-blue-700 mr-3 mt-0.5' />
                 <div>
                   <h3 className='font-semibold'>Numéro de téléphone </h3>
-                  <p className='text-gray-600'>(123) 456-7890</p>
+                  <p className='text-gray-600'>+212 6 30 42 38 63</p>
                 </div>
               </div>
 
@@ -261,7 +261,7 @@ export default function ContactPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   className='w-full shadow-lg px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500'
-                  placeholder='(123) 456-7890'
+                  placeholder='+212 6 30 42 38 63'
                 />
               </div>
 
