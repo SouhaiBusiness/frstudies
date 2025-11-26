@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Facebook, Instagram, Linkedin, Mail, Twitter } from 'lucide-react';
+import { BookOpen, Facebook, FileEdit, FileText, HelpCircle, Instagram, Linkedin, Mail, PenTool, Twitter } from 'lucide-react';
 
 export const metadata = {
   title: 'À propos - ETUDESFRANÇAISES',
@@ -49,24 +49,7 @@ export default function AboutPage() {
             {/* Feature 1 */}
             <div className='flex items-start gap-6'>
               <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='text-white'
-                >
-                  <path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path>
-                  <path d='M14 2v6h6'></path>
-                  <path d='M16 13H8'></path>
-                  <path d='M16 17H8'></path>
-                  <path d='M10 9H8'></path>
-                </svg>
+                <BookOpen className='text-white h-6 w-6' />
               </div>
               <div>
                 <h3 className='text-xl font-bold mb-2'>Cours</h3>
@@ -80,24 +63,7 @@ export default function AboutPage() {
             {/* Feature 2 */}
             <div className='flex items-start gap-6'>
               <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='text-white'
-                >
-                  <path d='m2 12 5 5 5-5'></path>
-                  <path d='m2 5 5 5 5-5'></path>
-                  <path d='M12 19h6a2 2 0 0 0 2-2v-4'></path>
-                  <path d='M18 5V3a2 2 0 0 0-2-2h-4'></path>
-                  <path d='M22 12h-4'></path>
-                </svg>
+                <FileText className='text-white h-6 w-6' />
               </div>
 
               <div>
@@ -112,24 +78,7 @@ export default function AboutPage() {
             {/* Feature 3*/}
             <div className='flex items-start gap-6'>
               <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='text-white'
-                >
-                  <path d='m2 12 5 5 5-5'></path>
-                  <path d='m2 5 5 5 5-5'></path>
-                  <path d='M12 19h6a2 2 0 0 0 2-2v-4'></path>
-                  <path d='M18 5V3a2 2 0 0 0-2-2h-4'></path>
-                  <path d='M22 12h-4'></path>
-                </svg>
+                <PenTool className='text-white h-6 w-6' />
               </div>
 
               <div>
@@ -146,24 +95,7 @@ export default function AboutPage() {
             {/* Feature 4*/}
             <div className='flex items-start gap-6'>
               <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='text-white'
-                >
-                  <path d='m2 12 5 5 5-5'></path>
-                  <path d='m2 5 5 5 5-5'></path>
-                  <path d='M12 19h6a2 2 0 0 0 2-2v-4'></path>
-                  <path d='M18 5V3a2 2 0 0 0-2-2h-4'></path>
-                  <path d='M22 12h-4'></path>
-                </svg>
+                <FileEdit className='text-white h-6 w-6' />
               </div>
 
               <div>
@@ -178,24 +110,7 @@ export default function AboutPage() {
             {/* Feature 5*/}
             <div className='flex items-start gap-6'>
               <div className='animation-scale bg-blue-600 rounded-full p-3 shrink-0'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  className='text-white'
-                >
-                  <path d='m2 12 5 5 5-5'></path>
-                  <path d='m2 5 5 5 5-5'></path>
-                  <path d='M12 19h6a2 2 0 0 0 2-2v-4'></path>
-                  <path d='M18 5V3a2 2 0 0 0-2-2h-4'></path>
-                  <path d='M22 12h-4'></path>
-                </svg>
+                <HelpCircle className='text-white h-6 w-6' />
               </div>
 
               <div>

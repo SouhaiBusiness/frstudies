@@ -3,7 +3,7 @@ import { BookOpen, MessageSquare, Bookmark } from "lucide-react"
 
 const quizzes = [
   {
-    id: "Histoire des idées et de l'art",
+    id: "Histoire",
     title: "Quiz de l'histoire des idées et de l'art",
     description: "Testez votre culture générale de l'histoire des idées et de l'art",
     icon: BookOpen,

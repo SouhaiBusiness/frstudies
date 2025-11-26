@@ -13,7 +13,7 @@ export interface Quiz {
 
 export const quizData: Quiz[] = [
   {
-    id: "Histoire des idées et de l'art",
+    id: "Histoire",
     title: "Quiz de l'histoire des idées et de l'art",
     description:
       'Test your knowledge of French history of ideas and art during key periods like the Renaissance and the Enlightenment.',

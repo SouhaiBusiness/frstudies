@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ChevronDown, LogOut } from "lucide-react"
+import { ChevronDown, ChevronRight, LogOut } from "lucide-react"
 import AuthModal from "./AuthModal"
 
 interface User {
@@ -256,7 +256,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden">
+          <div className="md:hidden flex justify-center items-center">
             <div className="flex flex-col justify-center items-center px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <Link
                 href="/"
@@ -272,6 +272,67 @@ export default function Navbar() {
               >
                 Quiz
               </Link>
+
+              {/* Mobile Courses dropdown */}
+      <div className="w-full">
+        <button
+          onClick={() => setIsMobileCoursesOpen(!isMobileCoursesOpen)}
+          className="flex items-center justify-center w-full px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-white hover:bg-[#0e2d6d] gap-1"
+        >
+          <span>Cours</span>
+          <ChevronRight className={`h-4 w-4 transition-transform duration-200 ${isMobileCoursesOpen ? 'rotate-90' : ''}`} />
+        </button>
+
+        <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileCoursesOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="mt-2 bg-gray-50 rounded-md p-4 space-y-4 border border-gray-200">
+            <div className="space-y-2">
+              <h3 className="text-sm font-bold text-gray-900 text-center">Filières</h3>
+              <div className="flex flex-col space-y-2">
+                <Link
+                  href="/linguistics"
+                  className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Linguistique
+                </Link>
+                <Link
+                  href="/literature"
+                  className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Littérature
+                </Link>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-sm font-bold text-gray-900 text-center">Rédaction</h3>
+              <div className="flex flex-col space-y-2">
+                <Link
+                  href="/commentaire-compose"
+                  className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Commentaire Composé
+                </Link>
+                <Link
+                  href="/dissertation"
+                  className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dissertation
+                </Link>
+                <Link
+                  href="/essai"
+                  className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Essai
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
               <Link
                 href="/exams"
