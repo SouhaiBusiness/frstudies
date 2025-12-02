@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { Loader2, Upload, X, AlertTriangle, Info } from 'lucide-react';
 import { useNotification, Notification } from '@/components/notification';
 
- 
 // Define the available filières
 const filieres = [
   { value: 'literature', label: 'Littérature' },
@@ -171,43 +170,179 @@ const modulesByFiliereAndSemester = {
       },
     ],
   },
+
   'commentaire-compose': {
     '1': [
       {
-        value: 'introduction-commentaire',
-        label: 'Introduction au Commentaire',
+        value: 'Initiation-aux-genres-dramatiques',
+        label: 'Initiation aux genres dramatiques',
       },
+      { value: 'Grammaire', label: 'Grammaire' },
+      { value: 'Les grands-mythes', label: 'Les grands mythes' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Phonétique', label: 'Phonétique' },
       {
-        value: 'methodologie-commentaire',
-        label: 'Méthodologie du Commentaire',
+        value: 'Typologie-des-textes-narratifs',
+        label: 'Typologie des textes narratifs',
       },
-      { value: 'analyse-texte', label: 'Analyse de Texte' },
-      { value: 'commentaire-poesie', label: 'Commentaire de Poésie' },
-      { value: 'commentaire-prose', label: 'Commentaire de Prose' },
-      { value: 'commentaire-theatre', label: 'Commentaire de Théâtre' },
     ],
-    // Add more semesters as needed
+    '2': [
+      { value: 'Poésie-et-Versification', label: 'Poésie et Versification' },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      { value: 'Lexicographie', label: 'Lexicographie' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Catégories-du-récit', label: 'Catégories du récit' },
+      {
+        value: "Introduction-à-l'interculturel",
+        label: "Introduction à l'interculturel",
+      },
+    ],
+    '3': [
+      { value: 'Théâtre-classique', label: 'Théâtre classique' },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      { value: 'Analyse-du-roman', label: 'Analyse du roman' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Lexicologie', label: 'Lexicologie' },
+      { value: 'Traduction', label: 'Traduction' },
+    ],
+    '4': [
+      {
+        value: 'initiation-à-la-linguistique',
+        label: 'initiation à la linguistique',
+      },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      {
+        value: 'initiation-à-la-recherche',
+        label: 'initiation à la recherche',
+      },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Poésie', label: 'Poésie' },
+      { value: 'Théâtre-classique', label: 'Théâtre classique' },
+    ],
+    '5': [
+      {
+        value: 'théories-du-texte-littéraire',
+        label: 'Théories-du-texte-littéraire',
+      },
+      { value: 'etudes-postcoloniales', label: 'Etudes postcoloniales' },
+      { value: 'Littérature-comparée', label: 'Littérature comparée' },
+      { value: 'Littérature-marocaine', label: 'Littérature marocaine' },
+      { value: 'Analyse-littéraire-1', label: 'Analyse littéraire 1' },
+      { value: 'rhétorique-des-images', label: 'Rhétorique des images' },
+      { value: 'Phonologie', label: 'Phonologie' },
+      { value: 'Sémantique', label: 'Sémantique' },
+      { value: 'Semiologie-générale', label: 'Semiologie générale' },
+      { value: 'Sociolinguistique', label: 'Sociolinguistique' },
+      { value: 'Grammaire-textuelle', label: 'Grammaire textuelle' },
+      { value: 'Linguistique-générale', label: 'Linguistique générale' },
+    ],
+    '6': [
+      {
+        value: 'Théories-du-texte-littéraire',
+        label: 'Théories du texte littéraire',
+      },
+      { value: 'analyse-du-roman', label: 'Analyse du roman' },
+      { value: 'les écritures-de-soi', label: 'Les écritures de soi' },
+      { value: 'analyse-littéraire-2', label: 'Analyse-littéraire-2' },
+      { value: 'théchniques-délaboration', label: 'Théchniques d élaboration' },
+      { value: 'Analyse-du-discours', label: 'Analyse du discours' },
+      { value: 'La-pragmatique', label: 'La pragmatique' },
+      { value: 'La-Sémiotique-narrative', label: 'La Sémiotique narrative' },
+      { value: 'Théories-linguistiques', label: 'Théories linguistiques' },
+      { value: "Techniques-d'élaborations", label: "Techniques d'élaboration" },
+      {
+        value: 'methodologie-recherche',
+        label: 'Méthodologie de la Recherche',
+      },
+    ],
   },
+  
   dissertation: {
     '1': [
       {
-        value: 'introduction-dissertation',
-        label: 'Introduction à la Dissertation',
+        value: 'Initiation-aux-genres-dramatiques',
+        label: 'Initiation aux genres dramatiques',
       },
+      { value: 'Grammaire', label: 'Grammaire' },
+      { value: 'Les grands-mythes', label: 'Les grands mythes' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Phonétique', label: 'Phonétique' },
       {
-        value: 'methodologie-dissertation',
-        label: 'Méthodologie de la Dissertation',
-      },
-      { value: 'problematisation', label: 'Problématisation' },
-      { value: 'argumentation', label: 'Argumentation' },
-      { value: 'dissertation-litteraire', label: 'Dissertation Littéraire' },
-      {
-        value: 'dissertation-philosophique',
-        label: 'Dissertation Philosophique',
+        value: 'Typologie-des-textes-narratifs',
+        label: 'Typologie des textes narratifs',
       },
     ],
-    // Add more semesters as needed
+    '2': [
+      { value: 'Poésie-et-Versification', label: 'Poésie et Versification' },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      { value: 'Lexicographie', label: 'Lexicographie' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Catégories-du-récit', label: 'Catégories du récit' },
+      {
+        value: "Introduction-à-l'interculturel",
+        label: "Introduction à l'interculturel",
+      },
+    ],
+    '3': [
+      { value: 'Théâtre-classique', label: 'Théâtre classique' },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      { value: 'Analyse-du-roman', label: 'Analyse du roman' },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Lexicologie', label: 'Lexicologie' },
+      { value: 'Traduction', label: 'Traduction' },
+    ],
+    '4': [
+      {
+        value: 'initiation-à-la-linguistique',
+        label: 'initiation à la linguistique',
+      },
+      { value: 'Morphosyntaxe', label: 'Morphosyntaxe' },
+      {
+        value: 'initiation-à-la-recherche',
+        label: 'initiation à la recherche',
+      },
+      { value: 'Histoire-des-idées', label: 'Histoire des idées' },
+      { value: 'Poésie', label: 'Poésie' },
+      { value: 'Théâtre-classique', label: 'Théâtre classique' },
+    ],
+    '5': [
+      {
+        value: 'théories-du-texte-littéraire',
+        label: 'Théories-du-texte-littéraire',
+      },
+      { value: 'etudes-postcoloniales', label: 'Etudes postcoloniales' },
+      { value: 'Littérature-comparée', label: 'Littérature comparée' },
+      { value: 'Littérature-marocaine', label: 'Littérature marocaine' },
+      { value: 'Analyse-littéraire-1', label: 'Analyse littéraire 1' },
+      { value: 'rhétorique-des-images', label: 'Rhétorique des images' },
+      { value: 'Phonologie', label: 'Phonologie' },
+      { value: 'Sémantique', label: 'Sémantique' },
+      { value: 'Semiologie-générale', label: 'Semiologie générale' },
+      { value: 'Sociolinguistique', label: 'Sociolinguistique' },
+      { value: 'Grammaire-textuelle', label: 'Grammaire textuelle' },
+      { value: 'Linguistique-générale', label: 'Linguistique générale' },
+    ],
+    '6': [
+      {
+        value: 'Théories-du-texte-littéraire',
+        label: 'Théories du texte littéraire',
+      },
+      { value: 'analyse-du-roman', label: 'Analyse du roman' },
+      { value: 'les écritures-de-soi', label: 'Les écritures de soi' },
+      { value: 'analyse-littéraire-2', label: 'Analyse-littéraire-2' },
+      { value: 'théchniques-délaboration', label: 'Théchniques d élaboration' },
+      { value: 'Analyse-du-discours', label: 'Analyse du discours' },
+      { value: 'La-pragmatique', label: 'La pragmatique' },
+      { value: 'La-Sémiotique-narrative', label: 'La Sémiotique narrative' },
+      { value: 'Théories-linguistiques', label: 'Théories linguistiques' },
+      { value: "Techniques-d'élaborations", label: "Techniques d'élaboration" },
+      {
+        value: 'methodologie-recherche',
+        label: 'Méthodologie de la Recherche',
+      },
+    ],
   },
+
   exams: {
     '1': [
       {
@@ -438,7 +573,7 @@ export default function UploadCoursePage() {
         module: formData.module,
         fileName: selectedFile.name,
         fileSize: selectedFile.size,
-        userId: 'admin'
+        userId: 'admin',
       });
 
       const response = await fetch('/api/courses', {

@@ -154,12 +154,12 @@ export default function Navbar() {
                       >
                         Dissertation
                       </Link>
-                      <Link
+                      {/*<Link
                         href="/essai"
                         className="flex items-center justify-center w-full px-4 py-2 text-sm text-gray-700 hover:text-blue-600"
                       >
                         Essai
-                      </Link>
+                      </Link>*/}
                     </div>
                   </div>
                 )}
@@ -321,13 +321,13 @@ export default function Navbar() {
                 >
                   Dissertation
                 </Link>
-                <Link
+                {/*<Link
                   href="/essai"
                   className="block text-center px-3 py-2 rounded-md text-sm text-gray-700 hover:text-white hover:bg-[#0e2d6d] transition-colors duration-200"
                   onClick={() => setIsOpen(false)}
                 >
                   Essai
-                </Link>
+                </Link>*/}
               </div>
             </div>
           </div>
