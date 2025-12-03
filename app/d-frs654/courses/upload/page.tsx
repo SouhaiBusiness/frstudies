@@ -315,7 +315,7 @@ const modulesByFiliereAndSemester = {
       { value: 'Littérature-marocaine', label: 'Littérature marocaine' },
       { value: 'Analyse-littéraire-1', label: 'Analyse littéraire 1' },
       { value: 'rhétorique-des-images', label: 'Rhétorique des images' },
-      { value: 'Phonologie', label: 'Phonologie' },
+      { value: 'Philosophie', label: 'Philosophie' },
       { value: 'Sémantique', label: 'Sémantique' },
       { value: 'Semiologie-générale', label: 'Semiologie générale' },
       { value: 'Sociolinguistique', label: 'Sociolinguistique' },
