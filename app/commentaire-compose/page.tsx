@@ -178,7 +178,7 @@ export default function CommentaireComposePage() {
                   title="Maîtrisez l'art du commentaire composé"
                   description='Un guide complet étape par étape pour analyser, structurer et rédiger un commentaire composé parfait. Apprenez les techniques des grands critiques littéraires.'
                   ctaText="Lire ce guide méthodologique de commentaire composé avant de passer aux exercices d'application ci-dessous"
-                  linkUrl='/articles/guide-commentaire-compose' // You'll update this later with actual blog slug
+                  linkUrl='/articles/mthodologie-du-commentaire-compos' // You'll update this later with actual blog slug
                   imageSrc='/commentairecomposé.png' // You need to add this image to /public/images/
                   imageAlt='Guide méthodologique de commentaire composé'
                   bgColor='bg-gradient-to-r from-blue-50 to-indigo-50'
