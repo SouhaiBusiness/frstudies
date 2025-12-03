@@ -316,11 +316,11 @@ const modulesByFiliereAndSemester = {
       { value: 'Analyse-littéraire-1', label: 'Analyse littéraire 1' },
       { value: 'rhétorique-des-images', label: 'Rhétorique des images' },
       { value: 'Philosophie', label: 'Philosophie' },
-      { value: 'Sémantique', label: 'Sémantique' },
-      { value: 'Semiologie-générale', label: 'Semiologie générale' },
-      { value: 'Sociolinguistique', label: 'Sociolinguistique' },
-      { value: 'Grammaire-textuelle', label: 'Grammaire textuelle' },
-      { value: 'Linguistique-générale', label: 'Linguistique générale' },
+      { value: 'Communication', label: 'Communication' },
+      { value: 'Médias', label: 'Médias' },
+      { value: 'Politique', label: 'Politique' },
+      { value: 'Education', label: 'Education' },
+      { value: 'Genre-et-Société', label: 'Genre et Société' },
     ],
     '6': [
       {
