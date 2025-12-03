@@ -176,7 +176,7 @@ export default function DissertationPage() {
                   title="Excellez dans l'art de la dissertation"
                   description="Découvrez les secrets d'une dissertation réussie : problématisation, plan dialectique, argumentation solide et style académique irréprochable."
                   ctaText='Lire ce guide méthodologique de dissertation avant de consulter les ressources ci-dessous'
-                  linkUrl='/articles/guide-dissertation' // You'll update this later with actual blog slug
+                  linkUrl='/articles/mthodologie-de-la-disseration' // You'll update this later with actual blog slug
                   imageSrc='/dissertation.jpg' // You need to add this image to /public/images/
                   imageAlt='Guide méthodologique de dissertation'
                   bgColor='bg-gradient-to-r from-purple-50 to-blue-50'
